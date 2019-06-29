@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import HTML5Backend from 'react-dnd-html5-backend'
+import { DragDropContext } from 'react-dnd'
 
 import Editor from "./editor";
 import Toolbar from "./Toolbar";
@@ -18,4 +20,4 @@ class Builder extends Component {
 	}
 }
 
-export default Builder;
+export default DragDropContext(HTML5Backend)(Builder);
