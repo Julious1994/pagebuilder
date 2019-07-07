@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
+import { findDOMNode } from 'react-dom';
 import { DropTarget } from 'react-dnd';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+
+import * as mapper from './templateMapper';
+import { openSetting, onSettingChange } from './../store/actions';
+import { level } from './../constant';
 
 const dropProps = {
 	drop(props, monitor) {
-		// console.log(monitor.getItem());
-		props.onDrop(monitor.getItem());
+		const { onDrop } = props;
+		console.log(monitor.getItem());
+		onDrop && onDrop(monitor.getItem());
 	}
 }
 
@@ -31,28 +38,101 @@ const TextLabel = styled.div`
 `;
 const EditorWrapper = styled.div`
 	height: 100%;
-	overflow: overlay;
+	overflow: auto;
 `;
 
 class Editor extends Component {
-	render() {
+
+	renderHeader(header) {
+		const { onChange } = this.props;
+		const Component = mapper.headers[header.id].component;
+		return <Component settings={header.state} onChange={onChange} />
+	}
+
+	renderComponent(block, mapping, index, type) {
+		const { openSetting } = this.props;
+		const mappedBlock = mapping[block.component] || {};
+		const Component = mappedBlock.component;
+		if(!Component) {
+			return null;
+		}
+		console.log(index, block);
 		return (
-			<EditorWrapper>
-				<EmptyHeaderFooter>
-					<TextLabel>Header</TextLabel>
-					<TextLabel>Drag-Drop header content. Will be shown on all pages.</TextLabel>
-				</EmptyHeaderFooter>
-				<EmptyContent>
-					<TextLabel>Content</TextLabel>
-					<TextLabel>Drag-Drop page blocks. Visible on this page only.</TextLabel>
-				</EmptyContent>
-				<EmptyHeaderFooter>
-					<TextLabel>Footer</TextLabel>
-					<TextLabel>Drag-Drop footer content. Will be shown on all pages.</TextLabel>
-				</EmptyHeaderFooter>
+			<div onClick={() => {
+				openSetting(block, level.COMPONENT, index, type)
+			}}>
+				<Component
+					settings={block.state}
+					onChange={(field, value) => this.handleChange(field, value, block, level.COMPONENT, index, type)}
+					key={index}
+				/>
+			</div>
+		)
+	}
+
+	handleChange = (field, value, block, level, index, type) => {
+		const { onSettingChange } = this.props;
+		const newBlock = {...block};
+		newBlock.state[field] = value;
+		onSettingChange(newBlock, level, index, type);
+	}
+
+	render() {
+		const { connectDropTarget, header, content, footer } = this.props;
+		return (
+			<EditorWrapper
+				ref={instance => connectDropTarget(findDOMNode(instance))}
+			>
+				{
+					header !== null
+					?
+						this.renderComponent(header, mapper.headers, undefined, 'header')
+					:
+						<EmptyHeaderFooter>
+							<TextLabel>Header</TextLabel>
+							<TextLabel>Drag-Drop header content. Will be shown on all pages.</TextLabel>
+						</EmptyHeaderFooter>
+				}
+				{
+					content.length !== 0
+					?
+						<React.Fragment>
+							{
+								content.map((block, i) => (
+									<React.Fragment key={i}>
+										{this.renderComponent(block, mapper.contents, i, 'content')}
+									</React.Fragment>
+								))
+							}
+						</React.Fragment>
+					:
+						<EmptyContent>
+							<TextLabel>Content</TextLabel>
+							<TextLabel>Drag-Drop page blocks. Visible on this page only.</TextLabel>
+						</EmptyContent>
+				}
+				{
+					footer !== null
+					?
+						this.renderComponent(footer, mapper.footers, undefined, 'footer')
+					:
+						<EmptyHeaderFooter>
+							<TextLabel>Footer</TextLabel>
+							<TextLabel>Drag-Drop footer content. Will be shown on all pages.</TextLabel>
+						</EmptyHeaderFooter>
+				}
 			</EditorWrapper>
 		);
 	}
 }
 
-export default DropTarget('CARD',dropProps, dropCollect)(Editor);
+const mapStateToProps = () => ({
+
+})
+
+const mapDispatchToProps = (dispatch) => ({
+	openSetting: (block, level, index, type) => dispatch(openSetting(block,level, index, type)),
+	onSettingChange: (block, level, index, type) => dispatch(onSettingChange(block, level, index, type))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DropTarget('CARD',dropProps, dropCollect)(Editor));
