@@ -7,6 +7,7 @@ import InfoDialog from './InfoDialog';
 import SettingPanel from '../SettingPanel';
 
 import { openSetting, hideSetting } from './../../store/actions';
+import Pallate from '../Pallate';
 
 class Toolbar extends Component {
 
@@ -30,21 +31,7 @@ class Toolbar extends Component {
 						openSetting ?
 							<SettingPanel />
 						:
-							<Accordian defaultActive={2}>
-								<AccordianItem label="Header"></AccordianItem>
-								<AccordianItem label="Footer"></AccordianItem>
-								<AccordianItem label="Content">
-									<div style={{ height: 100}}>Content1</div>
-									<div style={{ height: 150}}>Content2</div>
-									<div style={{ height: 150}}>Content3</div>
-									<div style={{ height: 100}}>Content4</div>
-									<div style={{ height: 150}}>Content5</div>
-									<div style={{ height: 150}}>Content6</div>
-									<div style={{ height: 100}}>Content7</div>
-									<div style={{ height: 150}}>Content8</div>
-									<div style={{ height: 150}}>Content9</div>
-								</AccordianItem>
-							</Accordian>
+							<Pallate />
 					}
 				</div>
 				<div style={{ width: '25%', borderLeft: '1px solid black', height: '100%' }}>
