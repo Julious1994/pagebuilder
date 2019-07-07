@@ -9,15 +9,22 @@ const initialState = {
 	id: null,
 	pageId: null,
 	type: 'content',
+	templateIndex: null,
 };
 
 export default function(state=initialState, action) {
 	const { payload } = action;
 	switch(action.type) {
 		case SHOW_SETTING: {
+			const { block } = payload;
 			return produce(state, draft => {
 				draft.open = true;
 				draft.level = payload.level;
+				draft.id = block.component;
+				draft.type = payload.type
+				if(payload.type === 'content') {
+					draft.templateIndex = payload.index;
+				}
 			});
 		}
 		case HIDE_SETTING: {
