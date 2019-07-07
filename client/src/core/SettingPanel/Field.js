@@ -1,5 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import ColorPicker from './../../components/ColorPicker';
+import Increment from './../../components/Increment';
+
+const fieldControlMapper = {
+    color: ColorPicker,
+    increment: Increment,
+}
 
 const FieldWrapper = styled.div`
 	display: flex;
@@ -17,13 +24,20 @@ const Title = styled.div`
 
 const Content = styled.div``;
 
-const Field = ({title, children}) => (
-	<FieldWrapper>
-		<Title>{title} :</Title>
-		<Content>
-			{children}
-		</Content>
-	</FieldWrapper>
-);
+const Field = ({...props}) => {
+	const { type, name, value, onChange } = props;
+	const Control = fieldControlMapper[type];
+	if(!Control) {
+		return null;
+	}
+	return (
+		<FieldWrapper>
+			<Title>{name} :</Title>
+			<Content>
+				<Control name={name} value={value} onChange={onChange} />
+			</Content>
+		</FieldWrapper>
+	)
+};
 
 export default Field;
