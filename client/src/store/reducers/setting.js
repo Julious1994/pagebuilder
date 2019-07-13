@@ -1,4 +1,4 @@
-import { HIDE_SETTING, SHOW_SETTING } from '../actionType';
+import { HIDE_SETTING, SHOW_SETTING, TOGGLE_COMPONENT_SETTING } from '../actionType';
 import { produce } from 'immer';
 
 import { level } from './../../constant';
@@ -10,6 +10,10 @@ const initialState = {
 	pageId: null,
 	type: 'content',
 	templateIndex: null,
+	componentSetting: {
+		templateIndex: null,
+		type: 'content',
+	}
 };
 
 export default function(state=initialState, action) {
@@ -31,6 +35,13 @@ export default function(state=initialState, action) {
 			return produce(state, draft => {
 				draft.open = false;
 				draft.level = level.GLOBAL;
+			});
+		}
+		case TOGGLE_COMPONENT_SETTING: {
+			console.log('hhhhh', payload.index);
+			return produce(state, draft => {
+				draft.componentSetting.templateIndex = payload.index;
+				draft.componentSetting.type = payload.type;
 			});
 		}
 		default:
