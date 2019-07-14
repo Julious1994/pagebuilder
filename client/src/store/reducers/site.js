@@ -1,7 +1,9 @@
 import { produce } from 'immer';
-import { CHANGE_TITLE, CHANGE_LOGO, SET_COMPONENT, CHANGE_SETTING } from './../actionType';
+import { CHANGE_TITLE, CHANGE_LOGO, SET_COMPONENT, CHANGE_SETTING, MOVE_DOWN, MOVE_UP } from './../actionType';
 import { headers, contents, footers } from '../../core/templateMapper';
 import { level as levels } from './../../constant';
+import { swapElement } from './../reducer.helper';
+import { openComponentSetting } from './../actions';
 
 const initialState = {
 	site: {
@@ -89,6 +91,37 @@ export default function(state = initialState, action) {
 			} else {
 				return state;
 			}
+		}
+		case MOVE_UP: {
+			const { index } = payload;
+			if(index > 0) {
+				const { site, currentPageIndex } = state;
+				const page = site.pages[currentPageIndex];
+				page.content = swapElement(page.content, index - 1, index);
+				// action.dispatch(openComponentSetting(index - 1, 'content'))
+				return JSON.parse(JSON.stringify(
+					produce(state, draft => {
+						draft.site.pages[currentPageIndex] = {...page};
+					})
+				));
+			}
+			return state;
+		}
+		case MOVE_DOWN: {
+			const { index } = payload;
+			const { site, currentPageIndex } = state;
+			const page = site.pages[currentPageIndex];
+			const contentLength = page.content.length;
+			if(contentLength - 1 > index) {
+				page.content = swapElement(page.content, index, index + 1);
+				action.asyncDispatch(openComponentSetting(index + 1, 'content'))
+				return JSON.parse(JSON.stringify(
+					produce(state, draft => {
+						draft.site.pages[currentPageIndex] = {...page};
+					})
+				));
+			}
+			return state;
 		}
 		default:
 			return state;

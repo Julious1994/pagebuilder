@@ -5,7 +5,9 @@ import {
 	CHANGE_LOGO,
 	SET_COMPONENT,
 	CHANGE_SETTING,
-	TOGGLE_COMPONENT_SETTING
+	TOGGLE_COMPONENT_SETTING,
+	MOVE_DOWN,
+	MOVE_UP,
 } from './actionType';
 
 export const openSetting = (block, level, index, type) => {
@@ -47,4 +49,15 @@ export const openComponentSetting = (index, type) => ({
 export const closeComponentSetting = () => ({
 	type: TOGGLE_COMPONENT_SETTING,
 	payload: { index: null, type: 'content' }
-})
+});
+
+export const moveUp = (index, dispatch) => ({
+	type: MOVE_UP,
+	payload: { index },
+	dispatch
+});
+
+export const moveDown = (index) => ({
+	type: MOVE_DOWN,
+	payload: { index },
+});

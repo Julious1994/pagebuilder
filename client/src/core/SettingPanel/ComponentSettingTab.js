@@ -24,15 +24,22 @@ const MenuIcon = styled(FontAwesomeIcon)`
 
 class ComponentSettingTab extends React.Component {
 	render() {
-		const { closeComponentSetting, openSetting } = this.props;
+		const { closeComponentSetting, openSetting, moveUp, moveDown } = this.props;
 		return(
 			<TabWrapper>
 				<MenuIcon
 					icon={faSortUp}
-					onClick={() => }
+					onClick={(e) => {
+						e.stopPropagation();
+						moveUp();
+					}}
 				/>
 				<MenuIcon
 					icon={faSortDown}
+					onClick={(e) => {
+						e.stopPropagation();
+						moveDown();
+					}}
 				/>
 				<MenuIcon
 					icon={faCog}

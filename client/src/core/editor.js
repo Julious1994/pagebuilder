@@ -5,7 +5,14 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 
 import * as mapper from './templateMapper';
-import { openSetting, onSettingChange, openComponentSetting, closeComponentSetting } from './../store/actions';
+import {
+	openSetting,
+	onSettingChange,
+	openComponentSetting,
+	closeComponentSetting,
+	moveUp,
+	moveDown,
+} from './../store/actions';
 import { level } from './../constant';
 
 import ComponentSettingTab from './SettingPanel/ComponentSettingTab';
@@ -56,7 +63,7 @@ class Editor extends Component {
 	}
 
 	renderComponent(block, mapping, index, type) {
-		const { openSetting, componentSetting, openComponentSetting } = this.props;
+		const { openSetting, componentSetting, openComponentSetting, moveUp, moveDown } = this.props;
 		const mappedBlock = mapping[block.component] || {};
 		const Component = mappedBlock.component;
 		const showSetting = componentSetting.type === type && componentSetting.templateIndex === index;
@@ -81,6 +88,8 @@ class Editor extends Component {
 					showSetting &&
 					<ComponentSettingTab
 						openSetting={() => openSetting(block, level.COMPONENT, index, type)}
+						moveUp={() => moveUp(index)}
+						moveDown={() => moveDown(index)}
 					/>
 				}
 			</ComponentWrapper>
@@ -151,6 +160,8 @@ const mapDispatchToProps = (dispatch) => ({
 	openSetting: (block, level, index, type) => dispatch(openSetting(block,level, index, type)),
 	onSettingChange: (block, level, index, type) => dispatch(onSettingChange(block, level, index, type)),
 	openComponentSetting: (index, type) => dispatch(openComponentSetting(index, type)),
+	moveUp: (index) => dispatch(moveUp(index, dispatch)),
+	moveDown: (index) => dispatch(moveDown(index)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropTarget('CARD',dropProps, dropCollect)(Editor));
