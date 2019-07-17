@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFile, faCircle, faCog, faQuestionCircle, faPaintBrush } from '@fortawesome/free-solid-svg-icons'
+import { faFile, faCircle, faCog, faQuestionCircle, faPaintBrush, faSave } from '@fortawesome/free-solid-svg-icons'
 
 const ToolWrapper = styled.div`
 	display: flex;
@@ -37,7 +37,7 @@ class Tools extends Component {
 				</ToolPart>
 				<ToolPart>
 					<FAIcon icon={faPaintBrush} onClick={() => onGlobalSetting && onGlobalSetting()}/>
-					{/* <FAIcon icon={faFile} onClick={() => this.props.addComponent()} /> */}
+					<FAIcon icon={faSave} onClick={() => this.props.savePage()} />
 				</ToolPart>
 				<ToolPart>
 					<FAIcon icon={faCog} onClick={() => this.props.onPageSettingClick()} />
