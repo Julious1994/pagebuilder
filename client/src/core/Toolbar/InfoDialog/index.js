@@ -6,9 +6,9 @@ Modal.defaultStyles.overlay.backgroundColor = 'rgba(0,0,0,0.7)';
 
 const customStyles = {
   content : {
-    top                   : '30%',
-    left                  : '30%',
-    right                 : '30%',
+    top                   : '20%',
+    left                  : '20%',
+    right                 : '20%',
     bottom                : 'auto',
   }
 };
@@ -34,15 +34,17 @@ const ButtonWrapper = styled.button`
 	color: white;
 	font-weight: bolder;
 	margin: 5px;
+	cursor: pointer;
 `;
 
 const CancelButton = styled.button`
 	background-color: #fff;
 	border: 1px solid #3B85BC;
-	padding: 15px 30px;
+	padding: 14px 29px;
 	color: black;
 	font-weight: bolder;
 	margin: 5px;
+	cursor: pointer;
 `;
 
 class InfoDialog extends React.Component {
@@ -53,11 +55,12 @@ class InfoDialog extends React.Component {
 				isOpen={isOpen}
 				onRequestClose={onClose}
 				style={customStyles}
+				ariaHideApp={false}
 			>
 				<ContentWrapper>
 					<Field fullWidth={true}>
 						<Label>Description</Label>
-						<textarea rows={10} cols={30}></textarea>
+						<textarea rows={7} cols={50}></textarea>
 					</Field>
 					<Field flex={1}>
 						<Label>Time</Label>
@@ -71,7 +74,7 @@ class InfoDialog extends React.Component {
 					</Field>
 					<Field>
 						<ButtonWrapper>Send</ButtonWrapper>
-						<CancelButton>Cancel</CancelButton>
+						<CancelButton onClick={onClose}>Cancel</CancelButton>
 					</Field>
 				</ContentWrapper>
 			</Modal>
