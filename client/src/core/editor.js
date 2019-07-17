@@ -20,7 +20,6 @@ import ComponentSettingTab from './SettingPanel/ComponentSettingTab';
 const dropProps = {
 	drop(props, monitor) {
 		const { onDrop } = props;
-		console.log(monitor.getItem());
 		onDrop && onDrop(monitor.getItem());
 	}
 }
@@ -63,31 +62,29 @@ class Editor extends Component {
 	}
 
 	renderComponent(block, mapping, index, type) {
-		const { openSetting, componentSetting, openComponentSetting, moveUp, moveDown } = this.props;
+		const { openSetting, componentSetting, openComponentSetting, moveUp, moveDown, editable } = this.props;
 		const mappedBlock = mapping[block.component] || {};
 		const Component = mappedBlock.component;
 		const showSetting = componentSetting.type === type && componentSetting.templateIndex === index;
 		if(!Component) {
 			return null;
 		}
-		console.log(componentSetting, type, index);
 		return (
 			<ComponentWrapper
 				onClick={() => {
 					openComponentSetting(index, type)
-					// openSetting(block, level.COMPONENT, index, type)
 				}}
-				onMouseOver={() => console.log('hover')}
 			>
 				<Component
 					settings={block.state}
 					onChange={(field, value) => this.handleChange(field, value, block, level.COMPONENT, index, type)}
 					key={index}
+					editable={editable}
 				/>
 				{
 					showSetting &&
 					<ComponentSettingTab
-						openSetting={() => openSetting(block, level.COMPONENT, index, type)}
+						openSetting={() => openSetting(level.COMPONENT, block, index, type)}
 						moveUp={() => moveUp(index)}
 						moveDown={() => moveDown(index)}
 					/>
@@ -154,10 +151,11 @@ class Editor extends Component {
 
 const mapStateToProps = (state) => ({
 	componentSetting: state.setting.componentSetting,
+	editable: state.sites.editable,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-	openSetting: (block, level, index, type) => dispatch(openSetting(block,level, index, type)),
+	openSetting: (level, block, index, type) => dispatch(openSetting(level, block, index, type)),
 	onSettingChange: (block, level, index, type) => dispatch(onSettingChange(block, level, index, type)),
 	openComponentSetting: (index, type) => dispatch(openComponentSetting(index, type)),
 	moveUp: (index) => dispatch(moveUp(index, dispatch)),
