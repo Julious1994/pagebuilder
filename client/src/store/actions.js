@@ -8,13 +8,20 @@ import {
 	TOGGLE_COMPONENT_SETTING,
 	MOVE_DOWN,
 	MOVE_UP,
+	SAVE_SITE,
+	CLOSE_SAVE_DIALOG
 } from './actionType';
 
-export const openSetting = (block, level, index, type) => {
-	console.log(index);
+export const openSetting = (level, block, index, type) => {
 	return {
 	type: SHOW_SETTING,
 	payload: { block, level, index, type },
+}};
+
+export const openPageSetting = (level, index) => {
+	return {
+	type: SHOW_SETTING,
+	payload: { level, pageId: index },
 }};
 
 export const hideSetting = () => ({
@@ -61,3 +68,13 @@ export const moveDown = (index) => ({
 	type: MOVE_DOWN,
 	payload: { index },
 });
+
+export const closeSaveDialog = () => ({
+	type: CLOSE_SAVE_DIALOG,
+});
+
+export const saveSite = () => {
+	return {
+		type: SAVE_SITE,
+	}
+}

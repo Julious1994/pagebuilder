@@ -9,3 +9,5 @@ export const CHANGE_SETTING = 'CHANGE_SETTING';
 export const TOGGLE_COMPONENT_SETTING = 'TOGGLE_COMPONENT_SETTING';
 export const MOVE_UP = 'MOVE_UP';
 export const MOVE_DOWN = 'MOVE_DOWN';
+export const SAVE_SITE = 'SAVE_SITE';
+export const CLOSE_SAVE_DIALOG = 'CLOSE_SAVE_DIALOG';
