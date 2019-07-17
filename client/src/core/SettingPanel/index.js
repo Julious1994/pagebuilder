@@ -9,6 +9,7 @@ import { changeLogo, onSettingChange } from './../../store/actions';
 import templateMapper from './../templateMapper';
 import { level } from './../../constant';
 import { getBlock } from './../../store/selector';
+import { globalSettings, pageSettings } from './../settingProperties';
 
 const PanelWrapper = styled.div`
 	padding: 5px;
@@ -34,20 +35,19 @@ class SettingPanel extends Component {
 		if(setting.level === level.COMPONENT) {
 			const { type, id } = setting;
 			const mapperList = templateMapper[`${type}s`];
-			console.log(mapperList, templateMapper, setting);
 			const mappedBlock = mapperList[id];
 			if(!mappedBlock) {
 				return {}
 			}
 			const Component = mapperList[id].component;
-			console.log('ss', Component);
 			return Component.settings;
+		} else if(setting.level === level.PAGE) {
+			return pageSettings;
 		}
 		return {}
 	}
 
 	handleChange = (key, value) => {
-		console.log(key, value);
 		const { onSettingChange, block, selectedSetting } = this.props;
 		const { level, templateIndex, type} = selectedSetting;
 		// settings[key] = value;
@@ -57,10 +57,9 @@ class SettingPanel extends Component {
 	}
 
 	render() {
-		const { title = "Settings", selectedSetting, block } = this.props;
+		const { title = "Settings", selectedSetting, block, settingLevel } = this.props;
 		const mappings = this.getMappings(selectedSetting);
-		const settingValues = block.state;
-		console.log('values', settingValues)
+		const settingValues = level.COMPONENT === settingLevel ? block.state : block;
 
 		return (
 			<PanelWrapper>
@@ -92,6 +91,7 @@ const mapStateToProps = (state) => ({
 		state.sites.currentPageIndex,
 		state.setting.type,
 	),
+	settingLevel: state.setting.level,
 });
 
 const mapDispatchToProps = (dispatch) => ({

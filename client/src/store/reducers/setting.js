@@ -24,10 +24,15 @@ export default function(state=initialState, action) {
 			return produce(state, draft => {
 				draft.open = true;
 				draft.level = payload.level;
-				draft.id = block.component;
-				draft.type = payload.type
-				if(payload.type === 'content') {
-					draft.templateIndex = payload.index;
+				if(payload.level === level.COMPONENT) {
+					draft.id = block.component;
+					draft.type = payload.type
+					if(payload.type === 'content') {
+						draft.templateIndex = payload.index;
+					}
+				}
+				if(payload.pageId) {
+					draft.pageId = payload.pageId;
 				}
 			});
 		}
@@ -38,7 +43,6 @@ export default function(state=initialState, action) {
 			});
 		}
 		case TOGGLE_COMPONENT_SETTING: {
-			console.log('hhhhh', payload.index);
 			return produce(state, draft => {
 				draft.componentSetting.templateIndex = payload.index;
 				draft.componentSetting.type = payload.type;

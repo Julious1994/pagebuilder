@@ -6,8 +6,10 @@ import Accordian, { AccordianItem } from './../../components/Accordian';
 import InfoDialog from './InfoDialog';
 import SettingPanel from '../SettingPanel';
 
-import { openSetting, hideSetting } from './../../store/actions';
+import { openSetting, hideSetting, closeSaveDialog, saveSite, openPageSetting } from './../../store/actions';
 import Pallate from '../Pallate';
+import SaveDialog from './SaveDialog';
+import { level } from './../../constant';
 
 class Toolbar extends Component {
 
@@ -23,7 +25,7 @@ class Toolbar extends Component {
 	}
 
 	render() {
-		const { openSetting } = this.props;
+		const { openSetting, saveDialog, currentPageIndex } = this.props;
 		return(
 			<div style={{height: '100%', display: 'flex'}}>
 				<div style={{ width: '75%', overflow: 'auto' }}>
@@ -39,11 +41,17 @@ class Toolbar extends Component {
 						onClick={this.handleToolClick}
 						infoToolClick={this.toggleInfoDialogClose}
 						addComponent={this.props.hideSetting}
-						onPageSettingClick={this.props.pageSettingClick}
+						onPageSettingClick={() => this.props.pageSettingClick(currentPageIndex)}
+						onGlobalSetting={this.props.onGlobalSetting}
+						savePage={this.props.saveSite}
 					/>
 					<InfoDialog
 						isOpen={this.state.infoPopup}
 						onClose={this.toggleInfoDialogClose}
+					/>
+					<SaveDialog
+						isOpen={saveDialog}
+						onClose={this.props.closeSaveDialog}
 					/>
 				</div>
 			</div>
@@ -54,12 +62,17 @@ class Toolbar extends Component {
 const mapStateToProps = (state) => {
 	return {
 		openSetting: state.setting.open,
+		saveDialog: state.sites.saveDialog,
+		currentPageIndex: state.sites.currentPageIndex,
 	}
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	pageSettingClick: () => dispatch(openSetting('page')),
+	pageSettingClick: (pageIndex) => dispatch(openPageSetting(level.PAGE, pageIndex)),
+	onGlobalSetting: () => dispatch(openSetting(level.GLOBAL)),
 	hideSetting: () => dispatch(hideSetting()),
+	closeSaveDialog: () => dispatch(closeSaveDialog()),
+	saveSite: () => dispatch(saveSite())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);
