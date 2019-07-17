@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import ColorPicker from './../../components/ColorPicker';
 import Increment from './../../components/Increment';
+import PropertyInput from './../../components/PropertyInput';
 
 const fieldControlMapper = {
     color: ColorPicker,
-    increment: Increment,
+		increment: Increment,
+		string: PropertyInput,
 }
 
 const FieldWrapper = styled.div`
