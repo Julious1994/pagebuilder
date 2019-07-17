@@ -1,4 +1,11 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const ItemImage = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: ${props => props.thumbnailRadius || '50%'};
+`;
 
 class Image extends React.Component {
 	constructor(props) {
@@ -17,7 +24,11 @@ class Image extends React.Component {
 		const { editable = false, src, onChange } = this.props;
 		return(
 			<React.Fragment>
-				<img src={src} onClick={this.handleImageClick} />
+				<ItemImage
+					src={src}
+					onClick={this.handleImageClick}
+					thumbnailRadius={this.props.thumbnailRadius}
+				/>
 				{
 					editable &&
 					<input
