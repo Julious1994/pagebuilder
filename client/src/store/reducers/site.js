@@ -104,30 +104,24 @@ export default function(state = initialState, action) {
 			const { index } = payload;
 			if(index > 0) {
 				const { site, currentPageIndex } = state;
-				const page = site.pages[currentPageIndex];
-				page.content = swapElement(page.content, index - 1, index);
-				// action.dispatch(openComponentSetting(index - 1, 'content'))
-				return JSON.parse(JSON.stringify(
-					produce(state, draft => {
-						draft.site.pages[currentPageIndex] = {...page};
-					})
-				));
+				return produce(state, draft => {
+					const page = draft.site.pages[draft.currentPageIndex];
+					page.content = swapElement(page.content, index - 1, index);
+					draft.site.pages[draft.currentPageIndex] = {...page};
+				});
 			}
 			return state;
 		}
 		case MOVE_DOWN: {
 			const { index } = payload;
-			const { site, currentPageIndex } = state;
-			const page = site.pages[currentPageIndex];
-			const contentLength = page.content.length;
-			if(contentLength - 1 > index) {
-				page.content = swapElement(page.content, index, index + 1);
-				return JSON.parse(JSON.stringify(
-					produce(state, draft => {
-						draft.site.pages[currentPageIndex] = {...page};
-					})
-				));
-			}
+			return produce(state, draft => {
+				const page = draft.site.pages[draft.currentPageIndex];
+				const contentLength = page.content.length;
+				if(contentLength - 1 > index) {
+					page.content = swapElement(page.content, index, index + 1);
+					draft.site.pages[draft.currentPageIndex] = {...page};
+				}
+			});
 			return state;
 		}
 		case SAVE_SITE: {
