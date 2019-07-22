@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import EditableDiv from 'react-contenteditable';
 
 
 const Input = styled.input`
@@ -28,19 +29,32 @@ const SubscribeContainer = styled.div`
 
 class Subscribe extends React.Component {
 	render() {
-		console.log(this.props);
-		const { settings = {} } = this.props;
+		const { settings = {}, onChange } = this.props;
 		return (
 			<SubscribeContainer
 				backgroundColor={settings.backgroundColor}
 				color={settings.color}
 			>
 				<div>
-					<h1>Subscribe</h1>
+					<h1>
+						<EditableDiv
+							html={settings.title}
+							disabled={false}
+							onChange={(e) => {
+								const { value } = e.target;
+								onChange && onChange('title', value);
+							}}
+						/>
+					</h1>
 				</div>
-				<div>
-					As seen above, pseudo-selectors and pseudo-elements are pretty much in traditional CSS can be done in Styled Components.
-				</div>
+				<EditableDiv
+					html={settings.subscribeText}
+					disabled={false}
+					onChange={(e) => {
+						const { value } = e.target;
+						onChange && onChange('subscribeText', value);
+					}}
+				/>
 				<form>
 					<Field>
 						<Input name="email" />
@@ -55,6 +69,9 @@ class Subscribe extends React.Component {
 Subscribe.defaultSettings = {
 	color: '',
 	backgroundColor: '',
+	submitText: 'Submit',
+	title: 'Subscribe',
+	subscribeText: 'As seen above, pseudo-selectors and pseudo-elements are pretty much in traditional CSS can be done in Styled Components.',
 }
 
 Subscribe.settings = {
