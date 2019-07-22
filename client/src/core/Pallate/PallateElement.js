@@ -4,9 +4,15 @@ import { DragSource } from 'react-dnd'
 import styled from 'styled-components';
 
 const ControlWrapper = styled.div`
-	padding: 30px;
+	${props => props.isImage ? `height: 75px;` : `padding: 30px;`}
 	font-weight: bolder;
 	border: 1px solid gray;
+	margin-bottom: 10px;
+`;
+
+const Image = styled.img`
+	width: 100%;
+	height: 100%;
 `;
 
 const dragSource = {
@@ -28,12 +34,16 @@ function collect(connect, monitor) {
 
 class Element extends React.Component {
 	render() {
-		const { title, connectDragSource } = this.props;
-
+		const { title, connectDragSource, thumbnail } = this.props;
 		return connectDragSource(
 			<div>
-				<ControlWrapper>
-					<span>{title}</span>
+				<ControlWrapper isImage={!!thumbnail}>
+					{
+						thumbnail ?
+							<Image src={`./images/${thumbnail}`} />
+						:
+						<span>{title}</span>
+					}
 				</ControlWrapper>
 			</div>
 		);
