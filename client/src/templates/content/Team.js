@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import EditableDiv from 'react-contenteditable';
-import { number } from 'prop-types';
+import Image from './../../components/Image';
 
 const TeamWrapper = styled.div`
   display: flex;
@@ -23,12 +23,6 @@ const TeamList = styled.div`
   justify-content: ${props => props.variant === 'avatar' ? 'flex-start' : 'center'};
 `;
   // justify-content: flex-start;
-
-const TeamItemImage = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: ${props => props.thumbnailRadius || '50%'};
-`;
 
 const TeamImageWrapper = styled.div`
   width: ${props => props.variant === 'avatar' ? '75px' : '150px'};
@@ -58,7 +52,9 @@ const TeamInfo = styled.div`
   }
 `;
 
-const TeamMemberDescription = styled.div``;
+const TeamMemberDescription = styled(EditableDiv)`
+	outline: none;
+`;
 
 class Team extends Component {
 
@@ -67,6 +63,16 @@ class Team extends Component {
 		const { teamList } = settings;
 		teamList[i] = {...team};
 		onChange('teamList', teamList);
+	}
+
+	getImage = (img) => {
+		let imgSrc = img;
+		if(img && img.name) {
+			imgSrc = window.URL.createObjectURL(img)
+		} else {
+			imgSrc = `./images/${img}`
+		}
+		return imgSrc;
 	}
 
   render() {
@@ -84,11 +90,17 @@ class Team extends Component {
             teamList.map((team, i) => (
               <TeamItem key={i} variant={variant}>
                 <TeamImageWrapper variant={variant}>
-                  <TeamItemImage
+                  <Image
                     thumbnailRadius={thumbnailRadius}
-                    src={`./images/${team.image}`}
+                    src={this.getImage(team.image)}
                     alt="team1"
-                    variant={variant}
+										variant={variant}
+										editable={true}
+										onChange={(img) => {
+											team.image = img;
+											console.log('img', team);
+											onChange(team, i);
+										}}
                   />
                 </TeamImageWrapper>
                 {
@@ -103,7 +115,14 @@ class Team extends Component {
                           onChange(team, i);
                         }}
                       />
-                      <TeamMemberDescription>{team.description}</TeamMemberDescription>
+                      <TeamMemberDescription
+												html={team.description}
+                        disabled={false}
+                        onChange={(e) => {
+                          team.description = e.target.value;
+                          onChange && onChange(team, i);
+                        }}
+											/>
                     </TeamInfo>
                   :
                     <React.Fragment>
@@ -115,7 +134,14 @@ class Team extends Component {
                           onChange && onChange(team, i);
                         }}
                       />
-                      <TeamMemberDescription>{team.description}</TeamMemberDescription>
+                      <TeamMemberDescription
+												html={team.description}
+                        disabled={false}
+                        onChange={(e) => {
+                          team.description = e.target.value;
+                          onChange && onChange(team, i);
+                        }}
+											/>
                     </React.Fragment>
                 }
               </TeamItem>
