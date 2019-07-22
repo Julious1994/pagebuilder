@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import ColorPicker from './../../components/ColorPicker';
 import Increment from './../../components/Increment';
 import PropertyInput from './../../components/PropertyInput';
+import Switch from '../../components/Boolean';
 
 const fieldControlMapper = {
     color: ColorPicker,
 		increment: Increment,
 		string: PropertyInput,
+		boolean: Switch
 }
 
 const FieldWrapper = styled.div`
