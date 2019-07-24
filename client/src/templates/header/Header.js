@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import EditableDiv from 'react-contenteditable';
+
 import { changeTitle, changeLogo } from './../../store/actions';
 import Image from './../../components/Image';
 
 const LogoWrapper = styled.div`
 	margin-top: 10px;
 	padding-left: 5px;
+	height: 45px;
 `;
 
 const LinkWrapper = styled.div`
@@ -16,7 +19,7 @@ const LinkWrapper = styled.div`
 const Header = styled.div`
 	display: flex;
 	justify-content: space-between;
-	background-color: rgb(20, 157, 204);
+	background-color: ${props => props.backgroundColor || 'rgb(20, 157, 204)'};
 `;
 
 const UL = styled.ul`
@@ -30,9 +33,9 @@ const LI = styled.li`
 	padding: 5px;
 `;
 
-const LogoText = styled.div`
+const LogoText = styled(EditableDiv)`
 	font-weight: bolder;
-	color: white;
+	color: ${props => props.logoColor || '#fff'};
 	font-size: 2em;
 `;
 
@@ -42,34 +45,30 @@ class HeaderTemplate extends Component {
 		super(props);
 		this.titleDiv = React.createRef();
 	}
+
+	handleChange = (img) => {
+		const { onChange } = this.props;
+		onChange('logo', img);
+	}
+
 	render() {
-		const { settings, changeTitle, title, logo, changeLogo } = this.props;
-		const { logoImage, logoText, logoAlt } = settings;
+		const { settings, onChange } = this.props;
+		const { logoImage, logo, logoText } = settings;
 		let logoSrc = logo;
 		if(logo && logo.name) {
 			logoSrc = window.URL.createObjectURL(logo)
 		}
-		console.log(settings);
 		return (
-			<Header>
+			<Header backgroundColor={settings.backgroundColor}>
 				<LogoWrapper>
 					{
-						logo ?
-							<Image src={logoSrc} editable={true} onChange={changeLogo}  />
-							// <img src={logoSrc} alt={logoAlt} />
+						logoImage ?
+							<Image src={logoSrc} editable={true} onChange={this.handleChange}  />
 							:
 							<LogoText
-								suppressContentEditableWarning={true}
-								contentEditable="true"
-								onFocus={(e) => console.log(e)}
-								onInput={e => {
-									changeTitle(e.currentTarget.textContent);
-									console.log('xx', this.titleDiv);
-								}}
-								ref={e => this.titleDiv = e}
-							>
-								{title}
-							</LogoText>
+								html={logoText || ''}
+								logoColor={settings.logoColor}
+							/>
 					}
 				</LogoWrapper>
 				<LinkWrapper>
@@ -91,13 +90,18 @@ HeaderTemplate.defaultProps = {
 };
 
 HeaderTemplate.defaultSettings = {
-	backgroundColor: '#fff',
+	backgroundColor: 'rgb(20, 157, 204)',
+	logo: 'Froala',
+	logoText: 'Froala',
+	logoImage: false,
+	logoColor: '#fff'
 }
 
 HeaderTemplate.settings = {
-	title: 'string',
-	logo: 'url',
+	logoText: 'string',
 	backgroundColor: 'color',
+	logoImage: 'boolean',
+	logoColor: 'color',
 };
 
 const mapDispatchToProps = (dispatch) => ({
