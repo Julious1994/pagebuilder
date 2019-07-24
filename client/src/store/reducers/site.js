@@ -17,15 +17,7 @@ import {
 const initialState = {
 	site: {
 		_id: 1,
-		header: {
-			component: '1',
-			styles: {},
-			state: {
-				links:[{text:'',url:'',target:''}],
-				social:[{icon:'', link:'',title:''},],
-				logo: { type: 'text/image', text:'MyBiz', src: '/public/siteid/logo.png',url:'/' }
-			}
-		},
+		header: null,
 		footer: null,
 		isArticle: false,
 		pages: [
@@ -72,12 +64,17 @@ export default function(state = initialState, action) {
 					draft.site.pages[currentPageIndex] = page;
 				});
 			} else {
+				const mapper = type === 'header' ? headers :footers;
+				const Component = mapper[component.component] || {};
+				const block = Component.component;
 				return produce(state, draft => {
+					const blockState = JSON.parse(JSON.stringify(block.defaultSettings));
 					draft.site[type] = {
-						state: {},
-						style: {},
 						...draft.site[type],
-						...component
+						...component,
+						state: {
+							...blockState,
+						},
 					};
 				});
 			}
@@ -91,7 +88,7 @@ export default function(state = initialState, action) {
 						if(type === 'content') {
 							page.content[index] = {...block};
 						} else {
-							page[type] = {...block};
+							draft.site[type] = {...block};
 						}
 						draft.site.pages[draft.currentPageIndex] = {...page};
 					});
