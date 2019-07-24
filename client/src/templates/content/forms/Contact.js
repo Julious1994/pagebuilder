@@ -6,6 +6,8 @@ import Section from '../../components/Section';
 
 const ContactUsWrapper = styled.div`
 	padding: 20px;
+	background-color: ${props => props.backgroundColor || 'transparent'}
+	color: ${props => props.color || 'initial'}
 `;
 
 const RowWrapper = styled.div`
@@ -85,10 +87,16 @@ class Contact extends React.Component {
 	render() {
 		const { settings, onChange, editable } = this.props;
 		const { title, name=true, email=true, message=true, namePlaceholder, messagePlaceholder, emailPlaceholder, buttonText, actionUrl } = settings;
-		console.log('came', this.props);
 		return (
-		<Section>
-			<ContactUsWrapper>
+		<Section
+			center={settings.centerSection}
+			backgroundColor={settings.sectionBackground}
+			contentWidth={settings.contentWidth}
+		>
+			<ContactUsWrapper
+				backgroundColor={settings.backgroundColor}
+				color={settings.color}
+			>
 				<Title
 					html={title}
 					disabled={false}
@@ -139,7 +147,10 @@ Contact.defaultSettings = {
 	messagePlaceholder: "Message",
 	submitTitle: "Send",
 	resetTitle: "Clear",
-	actionUrl: "/contact"
+	actionUrl: "/contact",
+	centerSection: false,
+	sectionBackground: 'transparent',
+	contentWidth: 100,
 }
 
 Contact.settings = {
@@ -156,6 +167,11 @@ Contact.settings = {
 	message: 'boolean',
 	phone: 'boolean',
 	email: 'boolean',
+	centerSection: 'boolean',
+	sectionBackground: 'color',
+	contentWidth: {
+		type: 'number',
+	}
 }
 
 export default Contact;
