@@ -1,4 +1,7 @@
 import Header from './../templates/header/Header';
+import Header2 from './../templates/header/Header2';
+import Header3 from './../templates/header/Header3';
+
 import Team from './../templates/content/Team';
 import Subscribe from './../templates/content/forms/Subscribe';
 import Pricing1 from './../templates/content/pricing/Pricing1';
@@ -10,6 +13,8 @@ import Footer3 from './../templates/footers/Footer3';
 
 export const headers = {
 	1: { component: Header, thumbnail: '', title: 'Header 1', type: 'header'},
+	2: { component: Header2, thumbnail: '', title: 'Header 2', type: 'header'},
+	3: { component: Header3, thumbnail: '', title: 'Header 3', type: 'header'},
 }
 
 export const footers = {
