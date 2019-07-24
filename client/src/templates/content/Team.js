@@ -98,7 +98,6 @@ class Team extends Component {
 										editable={true}
 										onChange={(img) => {
 											team.image = img;
-											console.log('img', team);
 											onChange(team, i);
 										}}
                   />

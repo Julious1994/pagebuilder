@@ -21,7 +21,6 @@ export const getBlock = (id, level, site, pageId, type) => {
 }
 
 export const getPageContent = (pages, pageIndex) => {
-	console.log('pages', pages);
 	const page = pages[pageIndex];
 	return page.content;
 }
