@@ -22,7 +22,7 @@ const ColorWrapper = styled.div`
 
 const Popover = styled.div`
   position: absolute;
-  zIndex: 2;
+  z-index: 2;
 `;
 
 const Cover = styled.div`
