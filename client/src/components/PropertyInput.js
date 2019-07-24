@@ -9,10 +9,11 @@ const InputWrapper = styled.input`
 	color: white;
 `;
 
-function Input({ value, onChange, name }) {
+function Input({ value, onChange, name, type }) {
 	return (
 		<InputWrapper
 			value={value}
+			type={type}
 			name={name}
 			onChange={(e) => onChange && onChange(e.target.value)}
 		/>
