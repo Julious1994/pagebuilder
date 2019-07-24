@@ -64,7 +64,6 @@ const Copyright = styled(EditableDiv)`
 class Footer2 extends React.Component {
 	render() {
 		const { settings } = this.props;
-		console.log(this.props);
 		return (
 			<Section>
 				<FooterContainer>
@@ -138,6 +137,14 @@ class Footer2 extends React.Component {
 
 Footer2.defaultSettings = {
 	linkColor: "#797F8E",
+	backgroundColor: undefined,
+	color: 'initial',
+}
+
+Footer2.settings = {
+	backgroundColor: 'color',
+	linkColor: 'color',
+  color: 'color',
 }
 
 export default Footer2;

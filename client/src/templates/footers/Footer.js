@@ -62,7 +62,13 @@ class Footer extends React.Component {
 }
 
 Footer.defaultSettings = {
+	backgroundColor: undefined,
+	color: 'initial',
+}
 
+Footer.settings = {
+  backgroundColor: 'color',
+  color: 'color',
 }
 
 export default Footer;

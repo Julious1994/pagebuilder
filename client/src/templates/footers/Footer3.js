@@ -16,7 +16,7 @@ const Copyright = styled(EditableDiv)`
   outline: none;
 `;
 
-class Footer2 extends React.Component {
+class Footer3 extends React.Component {
 	render() {
 		return (
 			<Section>
@@ -30,8 +30,14 @@ class Footer2 extends React.Component {
 	}
 }
 
-Footer2.defaultSettings = {
-
+Footer3.defaultSettings = {
+	backgroundColor: undefined,
+	color: 'initial',
 }
 
-export default Footer2;
+Footer3.settings = {
+  backgroundColor: 'color',
+  color: 'color',
+}
+
+export default Footer3;
