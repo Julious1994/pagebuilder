@@ -9,7 +9,8 @@ const fieldControlMapper = {
     color: ColorPicker,
 		increment: Increment,
 		string: PropertyInput,
-		boolean: Switch
+		boolean: Switch,
+		number: PropertyInput
 }
 
 const FieldWrapper = styled.div`
@@ -28,9 +29,15 @@ const Title = styled.div`
 
 const Content = styled.div``;
 
+const getType = (object) => {
+	console.log('objec', object);
+	return fieldControlMapper[object.type];
+}
+
 const Field = ({...props}) => {
 	const { type, name, value, onChange } = props;
-	const Control = fieldControlMapper[type];
+	const Control = typeof type === 'object' ? getType(type): fieldControlMapper[type];
+	const controlType = typeof type === 'object' ? type.type : type;
 	if(!Control) {
 		return null;
 	}
@@ -38,7 +45,12 @@ const Field = ({...props}) => {
 		<FieldWrapper>
 			<Title>{name} :</Title>
 			<Content>
-				<Control name={name} value={value} onChange={onChange} />
+				<Control
+					name={name}
+					value={value}
+					onChange={onChange}
+					type={controlType}
+				/>
 			</Content>
 		</FieldWrapper>
 	)
