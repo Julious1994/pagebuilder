@@ -12,9 +12,9 @@ import Footer2 from './../templates/footers/Footer2';
 import Footer3 from './../templates/footers/Footer3';
 
 export const headers = {
-	1: { component: Header, thumbnail: '', title: 'Header 1', type: 'header'},
-	2: { component: Header2, thumbnail: '', title: 'Header 2', type: 'header'},
-	3: { component: Header3, thumbnail: '', title: 'Header 3', type: 'header'},
+	1: { component: Header, thumbnail: 'header.png', title: 'Header 1', type: 'header'},
+	2: { component: Header2, thumbnail: 'header2.png', title: 'Header 2', type: 'header'},
+	3: { component: Header3, thumbnail: 'header3.png', title: 'Header 3', type: 'header'},
 }
 
 export const footers = {
