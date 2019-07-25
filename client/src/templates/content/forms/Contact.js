@@ -156,6 +156,10 @@ Contact.defaultSettings = {
 Contact.settings = {
 	backgroundColor: 'color',
 	color: 'color',
+	sectionBackground: 'color',
+	contentWidth: {
+		type: 'number',
+	},
 	emailPlaceholder: 'string',
 	namePlaceholder: 'string',
 	phonePlaceholder: 'string',
@@ -168,10 +172,6 @@ Contact.settings = {
 	phone: 'boolean',
 	email: 'boolean',
 	centerSection: 'boolean',
-	sectionBackground: 'color',
-	contentWidth: {
-		type: 'number',
-	}
 }
 
 export default Contact;
