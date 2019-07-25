@@ -85,7 +85,7 @@ HeaderTemplate.defaultProps = {
 };
 
 HeaderTemplate.defaultSettings = {
-	backgroundColor: '#fff',
+	backgroundColor: 'rgb(20, 157, 204)',
 	logo: 'Froala',
 	logoText: 'Froala',
 	logoImage: false,
