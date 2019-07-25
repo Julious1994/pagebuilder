@@ -32,7 +32,7 @@ class Tools extends Component {
 		return(
 			<ToolWrapper>
 				<ToolPart>
-					<FAIcon icon={faFile} />
+					<FAIcon icon={faFile} onClick={this.props.openNewDialog}/>
 					<FAIcon icon={faFile} onClick={() => this.props.addComponent()} />
 				</ToolPart>
 				<ToolPart>

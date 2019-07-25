@@ -9,6 +9,7 @@ import SettingPanel from '../SettingPanel';
 import { openSetting, hideSetting, closeSaveDialog, saveSite, openPageSetting } from './../../store/actions';
 import Pallate from '../Pallate';
 import SaveDialog from './SaveDialog';
+import NewDialog from './NewDialog';
 import { level } from './../../constant';
 
 class Toolbar extends Component {
@@ -17,11 +18,16 @@ class Toolbar extends Component {
 		super(props);
 		this.state={
 			infoPopup: false,
+			newDialog: false,
 		};
 	}
 
 	toggleInfoDialogClose = () => {
 		this.setState({ infoPopup: !this.state.infoPopup });
+	}
+
+	toggleNewDialog = () => {
+		this.setState({ newDialog: !this.state.newDialog });
 	}
 
 	render() {
@@ -44,6 +50,7 @@ class Toolbar extends Component {
 						onPageSettingClick={() => this.props.pageSettingClick(currentPageIndex)}
 						onGlobalSetting={this.props.onGlobalSetting}
 						savePage={this.props.saveSite}
+						openNewDialog={this.toggleNewDialog}
 					/>
 					<InfoDialog
 						isOpen={this.state.infoPopup}
@@ -52,6 +59,10 @@ class Toolbar extends Component {
 					<SaveDialog
 						isOpen={saveDialog}
 						onClose={this.props.closeSaveDialog}
+					/>
+					<NewDialog
+						isOpen={this.state.newDialog}
+						onClose={this.toggleNewDialog}
 					/>
 				</div>
 			</div>
