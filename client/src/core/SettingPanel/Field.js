@@ -34,6 +34,17 @@ const getType = (object) => {
 	return fieldControlMapper[object.type];
 }
 
+
+
+export const convertCamleToDashedString = (text) => {
+	const capitalize = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+	return text.split(/(?=[A-Z])/)
+	.map((t, i) => i === 0 ? capitalize(t) : t.toLowerCase())
+	.join(' ');
+};
+
 const Field = ({...props}) => {
 	const { type, name, value, onChange } = props;
 	const Control = typeof type === 'object' ? getType(type): fieldControlMapper[type];
@@ -43,7 +54,7 @@ const Field = ({...props}) => {
 	}
 	return (
 		<FieldWrapper>
-			<Title>{name} :</Title>
+			<Title>{convertCamleToDashedString(name)} :</Title>
 			<Content>
 				<Control
 					name={name}
