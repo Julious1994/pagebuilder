@@ -5,7 +5,8 @@ export const pageSettings = {
 }
 
 export const globalSettings = {
+	backgroundColor: 'color',
 	domain: 'string',
 	backgroundImage: 'url',
-	backgroundColor: 'color',
+	isArticle: 'boolean',
 }

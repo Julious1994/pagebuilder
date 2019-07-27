@@ -3,6 +3,9 @@ import templateMapper from './../core/templateMapper';
 
 export const getBlock = (id, level, site, pageId, type) => {
 	const page = site.pages[pageId];
+	if(level === levels.GLOBAL) {
+		return site;
+	}
 	if(page) {
 		if(level === levels.COMPONENT) {
 			if(type === 'content') {

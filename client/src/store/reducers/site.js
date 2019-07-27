@@ -28,7 +28,8 @@ const initialState = {
 				meta: { key: '', description: '' },
 				page_css: '',
 				page_js: '',
-				content: []
+				content: [],
+				state: {},
 			}
 		],
 	},
@@ -93,9 +94,20 @@ export default function(state = initialState, action) {
 						draft.site.pages[draft.currentPageIndex] = {...page};
 					});
 				return newState;
-			} else {
-				return state;
+			} else if(level === levels.PAGE) {
+				const newState = produce(state, draft => {
+					const page = draft.site.pages[draft.currentPageIndex];
+					page.state = block.state;
+					draft.site.pages[draft.currentPageIndex] = {...page};
+				});
+				return newState;
+			} else if (level === levels.GLOBAL) {
+				const newState = produce(state, draft => {
+					draft.site = {...block};
+				});
+				return newState;
 			}
+			return state;
 		}
 		case MOVE_UP: {
 			const { index } = payload;
@@ -122,22 +134,14 @@ export default function(state = initialState, action) {
 			return state;
 		}
 		case SAVE_SITE: {
-			return Object.assign({}, state, {
-				...state,
-				saveDialog: true,
-			})
-			// return produce(state, draft => {
-			// 	draft.site.saveDialog = true;
-			// });
+			return produce(state, draft => {
+				draft.saveDialog = true;
+			});
 		}
 		case CLOSE_SAVE_DIALOG: {
-			return Object.assign({}, state, {
-				...state,
-				saveDialog: false,
-			})
-			// return produce(state, draft => {
-			// 	draft.site.saveDialog = false;
-			// });
+			return produce(state, draft => {
+				draft.saveDialog = false;
+			});
 		}
 		default:
 			return state;

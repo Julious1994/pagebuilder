@@ -7,7 +7,7 @@ import Input from './../../components/PropertyInput';
 import ColorPicker from './../../components/ColorPicker';
 import { changeLogo, onSettingChange } from './../../store/actions';
 import templateMapper from './../templateMapper';
-import { level } from './../../constant';
+import { level as levels } from './../../constant';
 import { getBlock } from './../../store/selector';
 import { globalSettings, pageSettings } from './../settingProperties';
 
@@ -32,7 +32,7 @@ const PanelContent = styled.div`
 class SettingPanel extends Component {
 
 	getMappings(setting) {
-		if(setting.level === level.COMPONENT) {
+		if(setting.level === levels.COMPONENT) {
 			const { type, id } = setting;
 			const mapperList = templateMapper[`${type}s`];
 			const mappedBlock = mapperList[id];
@@ -41,8 +41,10 @@ class SettingPanel extends Component {
 			}
 			const Component = mapperList[id].component;
 			return Component.settings;
-		} else if(setting.level === level.PAGE) {
+		} else if(setting.level === levels.PAGE) {
 			return pageSettings;
+		} else if(setting.level === levels.GLOBAL) {
+			return globalSettings;
 		}
 		return {}
 	}
@@ -52,15 +54,27 @@ class SettingPanel extends Component {
 		const { level, templateIndex, type} = selectedSetting;
 		// settings[key] = value;
 		const newBlock = {...block};
-		newBlock.state[key] = value;
+		if(level === levels.GLOBAL) {
+			newBlock[key] = value;
+		} else {
+			newBlock.state[key] = value;
+		}
 		onSettingChange(newBlock, level, templateIndex, type);
+	}
+
+	getValues = (level, block) => {
+		if([levels.COMPONENT, levels.PAGE].includes(level)) {
+			return block.state;
+		} else {
+			return block;
+		}
 	}
 
 	render() {
 		const { title = "Settings", selectedSetting, block, settingLevel } = this.props;
 		const mappings = this.getMappings(selectedSetting);
-		const settingValues = level.COMPONENT === settingLevel ? block.state : block;
-
+		const settingValues = this.getValues(settingLevel, block);
+		console.log('block', block, mappings);
 		return (
 			<PanelWrapper>
 				<PanelTitle>{title}</PanelTitle>
