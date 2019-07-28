@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import { SketchPicker } from 'react-color';
+import Popover from 'react-tiny-popover';
 
 const Swatch = styled.div`
   padding: 5px;
@@ -18,11 +19,6 @@ const ColorWrapper = styled.div`
   background: ${props => {
     return props.color;
   }};
-`;
-
-const Popover = styled.div`
-  position: absolute;
-  z-index: 2;
 `;
 
 const Cover = styled.div`
@@ -63,20 +59,23 @@ class ColorPicker extends React.Component {
     const color = [null, undefined].includes(value) ? defaultColor : value;
     return (
       <div>
-        <Swatch onClick={this.handleClick}>
-          <ColorWrapper color={color} />
-        </Swatch>
-        {
-          this.state.displayColorPicker ?
-            <Popover>
-              <Cover onClick={this.handleClose}/>
-              <SketchPicker
-                color={color}
-                onChangeComplete={this.handleChange}
-              />
-            </Popover>
-          : null
-        }
+				<Popover
+					isOpen={this.state.displayColorPicker}
+					position={['top', 'bottom']} // preferred position
+					content={(
+						<div>
+								<Cover onClick={this.handleClose}/>
+								<SketchPicker
+									color={color}
+									onChangeComplete={this.handleChange}
+								/>
+						</div>
+					)}
+				>
+					<Swatch onClick={this.handleClick}>
+						<ColorWrapper color={color} />
+					</Swatch>
+				</Popover>
       </div>
     )
   }
