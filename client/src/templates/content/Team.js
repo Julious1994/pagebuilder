@@ -11,8 +11,9 @@ const TeamWrapper = styled.div`
   ${props => props.color ? 'color:' + props.color : ''}
 `;
 
-const TeamTitle = styled.h1`
-  text-align: center;
+const TeamTitle = styled(EditableDiv)`
+	text-align: center;
+	outline: none;
 `;
 
 const TeamList = styled.div`
@@ -83,8 +84,17 @@ class Team extends Component {
 				backgroundColor={settings.backgroundColor}
 				color={settings.color}
 				onClick={() => onEdit && onEdit()}
+				id="team"
 			>
-        <TeamTitle>Meet Our Team</TeamTitle>
+				<h1>
+					<TeamTitle
+						html={settings.teamTitle}
+						disabled={!editable}
+						onChange={(e) => {
+							onChange && onChange('teamTitle', e.target.value)
+						}}
+					/>
+				</h1>
         <TeamList variant={variant}>
           {
             teamList.map((team, i) => (
@@ -98,7 +108,7 @@ class Team extends Component {
 										editable={true}
 										onChange={(img) => {
 											team.image = img;
-											onChange(team, i);
+											this.handleTeamChange(team, i);
 										}}
                   />
                 </TeamImageWrapper>
@@ -111,7 +121,7 @@ class Team extends Component {
                         disabled={false}
                         onChange={(e) => {
                           team.title = e.target.value;
-                          onChange(team, i);
+                          this.handleTeamChange(team, i);
                         }}
                       />
                       <TeamMemberDescription
@@ -119,7 +129,7 @@ class Team extends Component {
                         disabled={false}
                         onChange={(e) => {
                           team.description = e.target.value;
-                          onChange && onChange(team, i);
+                          this.handleTeamChange(team, i);
                         }}
 											/>
                     </TeamInfo>
@@ -130,7 +140,7 @@ class Team extends Component {
                         disabled={false}
                         onChange={(e) => {
                           team.title = e.target.value;
-                          onChange && onChange(team, i);
+                          this.handleTeamChange(team, i);
                         }}
                       />
                       <TeamMemberDescription
@@ -138,7 +148,7 @@ class Team extends Component {
                         disabled={false}
                         onChange={(e) => {
                           team.description = e.target.value;
-                          onChange && onChange(team, i);
+                          this.handleTeamChange(team, i);
                         }}
 											/>
                     </React.Fragment>
@@ -174,12 +184,13 @@ Team.defaultSettings = {
 	backgroundColor: '',
 	variant: 'team',
 	thumbnailRadius: '50%',
+	teamTitle: 'Meet Our Team',
 }
 
 Team.settings = {
   backgroundColor: 'color',
   teamList: 'increment',
-  color: 'color',
+	color: 'color',
 }
 
 export default Team;
