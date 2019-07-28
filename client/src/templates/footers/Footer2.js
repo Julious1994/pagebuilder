@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import EditableDiv from 'react-contenteditable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebook, faTwitter, faInstagram, faPinterest } from '@fortawesome/free-brands-svg-icons';
+import * as brandIcons from '@fortawesome/free-brands-svg-icons';
 
 import Section from './../components/Section';
 import Link from './../components/Link';
+import SocialLink from './../components/SocialLink';
 
 const SocialWrapper = styled.div`
 	flex: 1;
@@ -62,71 +63,107 @@ const Copyright = styled(EditableDiv)`
 `;
 
 class Footer2 extends React.Component {
+	state = {
+		isOpen: false,
+	}
+
+	handleLinkChange = (link, index, listName) => {
+		const { settings, onChange } = this.props;
+		const list = settings[listName];
+		if(list && list[index]) {
+			list[index] = {...list[index], ...link};
+			onChange(listName, list);
+		}
+	}
+
 	render() {
-		const { settings } = this.props;
+		const { settings, editable, onChange } = this.props;
+		const { linkGroup1, linkGroup2, socialIconGroup } = settings;
 		return (
 			<Section>
 				<FooterContainer>
 					<FooterInfo>
 						<LinkList>
 							<Title
-								html={"Group 1"}
+								html={settings.groupTitle1}
+								disabled={!editable}
+								onChange={(e) => onChange('groupTitle1', e.target.value)}
 							/>
-							<Link
-								color="#797F8E"
-								linkText={"Home"}
-							/>
-							<Link
-								linkText={"Features"}
-							/>
-							<Link
-								linkText={"Pricing"}
-							/>
-							<Link
-								linkText={"Team"}
-							/>
+							{
+								linkGroup1.map((link, i) => (
+									<Link
+										key={i}
+										color="#797F8E"
+										link={link}
+										linkSetting={() => this.setState({ isOpen: !this.state.isOpen })}
+										editable={editable}
+										onSettingChange={(link) => this.handleLinkChange(link, i, 'linkGroup1')}
+									/>
+								))
+							}
 						</LinkList>
 						<LinkList>
 							<Title
-								html={"Group 2"}
+								html={settings.groupTitle2}
+								disabled={!editable}
+								onChange={(e) => onChange('groupTitle2', e.target.value)}
 							/>
-							<Link
-								linkText={"Privacy Policy"}
-							/>
-							<Link
-								linkText={"Terms"}
-							/>
-							<Link
-								linkText={"FAQ"}
-							/>
+							{
+								linkGroup2.map((link, i) => (
+									<Link
+										key={i}
+										color="#797F8E"
+										link={link}
+										linkSetting={() => this.setState({ isOpen: !this.state.isOpen })}
+										editable={editable}
+										onSettingChange={(link) => this.handleLinkChange(link, i, 'linkGroup2')}
+									/>
+								))
+							}
+
 						</LinkList>
 						<AboutWrapper>
 							<Title
-								html={"About us"}
+								html={settings.aboutTitle}
+								disabled={!editable}
+								onChange={(e) => onChange('aboutTitle', e.target.value)}
 							/>
 							<Description
-								html={"AUTO1 is disrupting the automotive industry. Most of the things we do have never been done before."}
+								html={settings.aboutDescription}
+								disabled={!editable}
+								onChange={(e) => onChange('aboutDescription', e.target.value)}
 							/>
 
 						</AboutWrapper>
 						<SocialWrapper>
 							<div>
 								<Title
-									html={"Follow Us"}
+									html={settings.followTitle}
+									disabled={!editable}
+									onChange={(e) => onChange('followTitle', e.target.value)}
 								/>
 							</div>
 							<FollowList>
-								<a href="#"><SocialIcon icon={faFacebook} /></a>
-								<a href="#"><SocialIcon icon={faTwitter} /></a>
-								<a href="#"><SocialIcon icon={faInstagram} /></a>
-								<a href="#"><SocialIcon icon={faPinterest} /></a>
-								<a href="#"><SocialIcon icon={faPinterest} /></a>
+								{
+									socialIconGroup.map((link, i) => (
+										<SocialLink
+											key={i}
+											editable={editable}
+											link={link}
+											onSettingChange={(link) => this.handleLinkChange(link, i, 'socialIconGroup')}
+										>
+											<SocialIcon icon={brandIcons[link.icon]} />
+										</SocialLink>
+									))
+								}
 							</FollowList>
 						</SocialWrapper>
 					</FooterInfo>
 					<div>
 						<Copyright
-							html={"© 2019 GitHub, Inc. All rights reserved."}
+							html={settings.copyright}
+							disabled={!editable}
+							onChange={(e) => onChange('copyright', e.target.value)}
 						/>
 					</div>
 				</FooterContainer>
@@ -139,12 +176,36 @@ Footer2.defaultSettings = {
 	linkColor: "#797F8E",
 	backgroundColor: undefined,
 	color: 'initial',
+	groupTitle1: 'Group1',
+	groupTitle2: 'Group2',
+	aboutTitle: 'About us',
+	followTitle: 'Follow us',
+	copyright: '© 2019 GitHub, Inc. All rights reserved.',
+	aboutDescription: 'AUTO1 is disrupting the automotive industry. Most of the things we do have never been done before.',
+	linkGroup1: [
+		{ href: '/team', title: 'Home', },
+		{ href: '#', title: 'Features', },
+		{ href: '#', title: 'Pricing', },
+		{ href: '#', title: 'Team', },
+	],
+	linkGroup2: [
+		{ href: '/home', title: 'Privacy Policy', },
+		{ href: '#', title: 'Terms', },
+		{ href: '#', title: 'FAQ', },
+	],
+	socialIconGroup: [
+		{ href: '#', icon: 'faFacebook'},
+		{ href: '#', icon: 'faTwitter'},
+		{ href: '#', icon: 'faInstagram'},
+		{ href: '#', icon: 'faPinterest'},
+	],
 }
 
 Footer2.settings = {
 	backgroundColor: 'color',
 	linkColor: 'color',
-  color: 'color',
+	color: 'color',
+	linkGroup1: 'increment',
 }
 
 export default Footer2;
