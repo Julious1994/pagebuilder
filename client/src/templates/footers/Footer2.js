@@ -206,6 +206,7 @@ Footer2.settings = {
 	linkColor: 'color',
 	color: 'color',
 	linkGroup1: 'increment',
+	linkGroup2: 'increment',
 }
 
 export default Footer2;

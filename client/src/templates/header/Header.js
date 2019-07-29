@@ -5,6 +5,7 @@ import EditableDiv from 'react-contenteditable';
 
 import { changeTitle, changeLogo } from './../../store/actions';
 import Image from './../../components/Image';
+import Link from './../components/Link';
 
 const LogoWrapper = styled.div`
 	margin-top: 10px;
@@ -35,7 +36,7 @@ const LI = styled.li`
 
 const LogoText = styled(EditableDiv)`
 	font-weight: bolder;
-	color: ${props => props.logoColor || '#fff'};
+	color: ${props => props.color || '#fff'};
 	font-size: 2em;
 `;
 
@@ -51,9 +52,18 @@ class HeaderTemplate extends Component {
 		onChange('logo', img);
 	}
 
-	render() {
+	handleLinkChange = (link, index, listName) => {
 		const { settings, onChange } = this.props;
-		const { logoImage, logo, logoText } = settings;
+		const list = settings[listName];
+		if(list && list[index]) {
+			list[index] = {...list[index], ...link};
+			onChange(listName, list);
+		}
+	}
+
+	render() {
+		const { settings, onChange, editable } = this.props;
+		const { logoImage, logo, logoText, links } = settings;
 		let logoSrc = logo;
 		if(logo && logo.name) {
 			logoSrc = window.URL.createObjectURL(logo)
@@ -67,15 +77,27 @@ class HeaderTemplate extends Component {
 							:
 							<LogoText
 								html={logoText || ''}
-								logoColor={settings.logoColor}
+								disabled={!editable}
+								color={settings.logoColor}
+								onChange={(e) => onChange('logoText', e.target.value)}
 							/>
 					}
 				</LogoWrapper>
 				<LinkWrapper>
 					<UL>
-						<LI>Home</LI>
-						<LI>About</LI>
-						<LI>Contact</LI>
+						{
+							links.map((link, i) => (
+								<LI key={i}>
+									<Link
+										color="#fff"
+										key={i}
+										link={link}
+										editable={editable}
+										onSettingChange={(link) => this.handleLinkChange(link, i, 'links')}
+									/>
+								</LI>
+							))
+						}
 					</UL>
 				</LinkWrapper>
 			</Header>
@@ -94,7 +116,12 @@ HeaderTemplate.defaultSettings = {
 	logo: 'Froala',
 	logoText: 'Froala',
 	logoImage: false,
-	logoColor: '#fff'
+	logoColor: '#fff',
+	links: [
+		{ href: '#', title: 'Home', },
+		{ href: '#', title: 'About', },
+		{ href: '#', title: 'Contact', },
+	]
 }
 
 HeaderTemplate.settings = {

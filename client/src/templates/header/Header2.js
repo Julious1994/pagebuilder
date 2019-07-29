@@ -4,9 +4,13 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter, faInstagram, faPinterest } from '@fortawesome/free-brands-svg-icons';
 import EditableDiv from 'react-contenteditable';
+import * as brandIcons from '@fortawesome/free-brands-svg-icons';
+
 
 import { changeTitle, changeLogo } from './../../store/actions';
 import Image from './../../components/Image';
+import SocialLink from './../components/SocialLink';
+import Link from './../components/Link';
 
 const LogoWrapper = styled.div`
 	margin-top: 10px;
@@ -36,7 +40,7 @@ const LI = styled.li`
 
 const LogoText = styled(EditableDiv)`
 	font-weight: bolder;
-	color: ${props => props.logoColor || 'white'};
+	color: ${props => props.color || 'white'};
 	font-size: 2em;
 `;
 
@@ -52,9 +56,18 @@ class HeaderTemplate extends Component {
 		onChange('logo', img);
 	}
 
+	handleLinkChange = (link, index, listName) => {
+		const { settings, onChange } = this.props;
+		const list = settings[listName];
+		if(list && list[index]) {
+			list[index] = {...list[index], ...link};
+			onChange(listName, list);
+		}
+	}
+
 	render() {
-		const { settings } = this.props;
-		const { logoImage, logo, logoText } = settings;
+		const { settings, editable, onChange } = this.props;
+		const { logoImage, logo, logoText, socialIconGroup, links } = settings;
 		let logoSrc = logo;
 		if(logo && logo.name) {
 			logoSrc = window.URL.createObjectURL(logo)
@@ -70,31 +83,44 @@ class HeaderTemplate extends Component {
 							:
 							<LogoText
 								html={logoText || ''}
-								logoColor={settings.logoColor}
+								disabled={!editable}
+								color={settings.logoColor}
+								onChange={(e) => onChange('logoText', e.target.value)}
 							/>
 					}
 				</LogoWrapper>
 				<LinkWrapper>
 					<UL>
-						<LI>Home</LI>
-						<LI>About</LI>
-						<LI>Contact</LI>
+						{
+							links.map((link, i) => (
+								<LI key={i}>
+									<Link
+										color="#fff"
+										key={i}
+										link={link}
+										editable={editable}
+										onSettingChange={(link) => this.handleLinkChange(link, i, 'links')}
+									/>
+								</LI>
+							))
+						}
 					</UL>
 				</LinkWrapper>
 				<LinkWrapper>
 					<UL>
-						<LI>
-							<FontAwesomeIcon icon={faFacebook} />
-						</LI>
-						<LI>
-							<FontAwesomeIcon icon={faTwitter} />
-						</LI>
-						<LI>
-							<FontAwesomeIcon icon={faInstagram} />
-						</LI>
-						<LI>
-							<FontAwesomeIcon icon={faTwitter} />
-						</LI>
+						{
+							socialIconGroup.map((link, i) => (
+								<LI key={i}>
+									<SocialLink
+										editable={editable}
+										link={link}
+										onSettingChange={(link) => this.handleLinkChange(link, i, 'socialIconGroup')}
+									>
+										<FontAwesomeIcon icon={brandIcons[link.icon]} />
+									</SocialLink>
+								</LI>
+							))
+						}
 					</UL>
 				</LinkWrapper>
 			</Header>
@@ -114,6 +140,17 @@ HeaderTemplate.defaultSettings = {
 	logoText: 'Froala',
 	logoImage: false,
 	logoColor: '#fff',
+	links: [
+		{ href: '#', title: 'Home', },
+		{ href: '#', title: 'About', },
+		{ href: '#', title: 'Contact', },
+	],
+	socialIconGroup: [
+		{ href: '#', icon: 'faFacebook'},
+		{ href: '#', icon: 'faTwitter'},
+		{ href: '#', icon: 'faInstagram'},
+		{ href: '#', icon: 'faPinterest'},
+	]
 }
 
 HeaderTemplate.settings = {

@@ -18,11 +18,14 @@ const Copyright = styled(EditableDiv)`
 
 class Footer3 extends React.Component {
 	render() {
+		const { settings, onChange, editable } = this.props;
 		return (
 			<Section>
 				<FooterContainer>
 					<Copyright
-						html={"© 2019 GitHub, Inc. All rights reserved."}
+						html={settings.copyright}
+						disabled={!editable}
+						onChange={(e) => onChange('copyright', e.target.value)}
 					/>
 				</FooterContainer>
 			</Section>
@@ -33,6 +36,7 @@ class Footer3 extends React.Component {
 Footer3.defaultSettings = {
 	backgroundColor: undefined,
 	color: 'initial',
+	copyright: '© 2019 GitHub, Inc. All rights reserved.',
 }
 
 Footer3.settings = {

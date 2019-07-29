@@ -35,7 +35,7 @@ const LI = styled.li`
 
 const LogoText = styled(EditableDiv)`
 	font-weight: bolder;
-	color: ${props => props.logoColor || 'white'};
+	color: ${props => props.color || 'white'};
 	font-size: 2em;
 `;
 
@@ -52,7 +52,7 @@ class HeaderTemplate extends Component {
 	}
 
 	render() {
-		const { settings } = this.props;
+		const { settings, editable, onChange } = this.props;
 		const { logoImage, logo, logoText } = settings;
 		let logoSrc = logo;
 		if(logo && logo.name) {
@@ -69,7 +69,9 @@ class HeaderTemplate extends Component {
 						:
 						<LogoText
 							html={logoText || ''}
-							logoColor={settings.logoColor}
+							disabled={!editable}
+							color={settings.logoColor}
+							onChange={(e) => onChange('logoText', e.target.value)}
 						/>
 					}
 				</LogoWrapper>

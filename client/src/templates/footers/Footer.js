@@ -2,9 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import EditableDiv from 'react-contenteditable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebook, faTwitter, faInstagram, faPinterest } from '@fortawesome/free-brands-svg-icons';
+import * as brandIcons from '@fortawesome/free-brands-svg-icons';
 
 import Section from './../components/Section';
+import SocialLink from './../components/SocialLink';
 
 const Company = styled(EditableDiv)`
 	font-weight: bolder;
@@ -38,22 +39,60 @@ const SocialIcon = styled(FontAwesomeIcon)`
 `;
 
 class Footer extends React.Component {
+
+	handleLinkChange = (link, index, listName) => {
+		const { settings, onChange } = this.props;
+		const list = settings[listName];
+		if(list && list[index]) {
+			list[index] = {...list[index], ...link};
+			onChange(listName, list);
+		}
+	}
+
 	render() {
+		const { settings, editable, onChange } = this.props;
+		const { socialIconGroup } = settings;
 		return (
 			<Section width="50%" center>
 				<FooterContainer>
 					<Company
-						html={"Company Name"}
+						html={settings.companyName}
+						disabled={!editable}
+						onChange={(e) => onChange('companyName', e.target.value)}
 					/>
-					<Address html={"45 West block"} />
-					<Address html={"Sector 16 GN Gujarat"} />
-					<Address html={"INDIA"} />
-					<Contact html={"9856231475"}></Contact>
+					<Address
+						html={settings.address1}
+						disabled={!editable}
+						onChange={(e) => onChange('address1', e.target.value)}
+					/>
+					<Address
+						html={settings.address2}
+						disabled={!editable}
+						onChange={(e) => onChange('address2', e.target.value)}
+					/>
+					<Address
+						html={settings.address3}
+						disabled={!editable}
+						onChange={(e) => onChange('address3', e.target.value)}
+					/>
+					<Contact
+						html={settings.contact}
+						disabled={!editable}
+						onChange={(e) => onChange('contact', e.target.value)}
+					/>
 					<SocialWrapper>
-						<a href="#"><SocialIcon icon={faFacebook} /></a>
-						<a href="#"><SocialIcon icon={faTwitter} /></a>
-						<a href="#"><SocialIcon icon={faInstagram} /></a>
-						<a href="#"><SocialIcon icon={faPinterest} /></a>
+						{
+							socialIconGroup.map((link, i) => (
+								<SocialLink
+									key={i}
+									editable={editable}
+									link={link}
+									onSettingChange={(link) => this.handleLinkChange(link, i, 'socialIconGroup')}
+								>
+									<SocialIcon icon={brandIcons[link.icon]} />
+								</SocialLink>
+							))
+						}
 					</SocialWrapper>
 				</FooterContainer>
 			</Section>
@@ -64,6 +103,17 @@ class Footer extends React.Component {
 Footer.defaultSettings = {
 	backgroundColor: undefined,
 	color: 'initial',
+	companyName: 'Company Name',
+	address1: '45 West block',
+	address2: 'Sector 16 GN Gujarat',
+	address3: 'INDIA',
+	contact: '9856231475',
+	socialIconGroup: [
+		{ href: '#', icon: 'faFacebook'},
+		{ href: '#', icon: 'faTwitter'},
+		{ href: '#', icon: 'faInstagram'},
+		{ href: '#', icon: 'faPinterest'},
+	]
 }
 
 Footer.settings = {
