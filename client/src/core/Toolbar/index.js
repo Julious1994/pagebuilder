@@ -6,7 +6,14 @@ import Accordian, { AccordianItem } from './../../components/Accordian';
 import InfoDialog from './InfoDialog';
 import SettingPanel from '../SettingPanel';
 
-import { openSetting, hideSetting, closeSaveDialog, saveSite, openPageSetting } from './../../store/actions';
+import {
+	openSetting,
+	hideSetting,
+	closeSaveDialog,
+	saveSite,
+	openPageSetting,
+	createPage,
+} from './../../store/actions';
 import Pallate from '../Pallate';
 import SaveDialog from './SaveDialog';
 import NewDialog from './NewDialog';
@@ -19,6 +26,7 @@ class Toolbar extends Component {
 		this.state={
 			infoPopup: false,
 			newDialog: false,
+			isArticle: false,
 		};
 	}
 
@@ -26,12 +34,12 @@ class Toolbar extends Component {
 		this.setState({ infoPopup: !this.state.infoPopup });
 	}
 
-	toggleNewDialog = () => {
-		this.setState({ newDialog: !this.state.newDialog });
+	toggleNewDialog = (isArticle = false) => {
+		this.setState({ newDialog: !this.state.newDialog, isArticle });
 	}
 
 	render() {
-		const { openSetting, saveDialog, currentPageIndex } = this.props;
+		const { openSetting, saveDialog, currentPageIndex, createPage } = this.props;
 		return(
 			<div style={{height: '100%', display: 'flex'}}>
 				<div style={{ width: '75%', overflow: 'auto' }}>
@@ -51,6 +59,8 @@ class Toolbar extends Component {
 						onGlobalSetting={this.props.onGlobalSetting}
 						savePage={this.props.saveSite}
 						openNewDialog={this.toggleNewDialog}
+						newPage={() => this.toggleNewDialog()}
+						newArticle={() => this.toggleNewDialog(true)}
 					/>
 					<InfoDialog
 						isOpen={this.state.infoPopup}
@@ -62,7 +72,12 @@ class Toolbar extends Component {
 					/>
 					<NewDialog
 						isOpen={this.state.newDialog}
-						onClose={this.toggleNewDialog}
+						onClose={() => this.toggleNewDialog()}
+						isArticle={this.state.isArticle}
+						onCreate={(props) => {
+							createPage(props);
+							this.toggleNewDialog();
+						}}
 					/>
 				</div>
 			</div>
@@ -83,7 +98,8 @@ const mapDispatchToProps = (dispatch) => ({
 	onGlobalSetting: () => dispatch(openSetting(level.GLOBAL)),
 	hideSetting: () => dispatch(hideSetting()),
 	closeSaveDialog: () => dispatch(closeSaveDialog()),
-	saveSite: () => dispatch(saveSite())
+	saveSite: () => dispatch(saveSite()),
+	createPage: (props) => dispatch(createPage(props)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFile, faCircle, faCog, faQuestionCircle, faPaintBrush, faSave } from '@fortawesome/free-solid-svg-icons'
+import Popover from 'react-tiny-popover';
 
 const ToolWrapper = styled.div`
 	display: flex;
@@ -26,13 +27,63 @@ const FAIcon = styled(FontAwesomeIcon)`
 	cursor: pointer;
 `;
 
+const PopupWrapper = styled.div`
+	background-color: white;
+	border: 1px solid #AFAFAF;
+	padding: 2px 10px;
+	border-radius: 3px;
+	position: relative;
+`;
+
+const PopoverRow = styled.div`
+	font-weight: 500;
+	padding: 5px 0px;
+	cursor: pointer;
+	${props => props.bottom !== false ? `border-bottom: 1px solid #AFAFAF` : ''}
+`;
+
 class Tools extends Component {
+	state = {
+		newPopover: false,
+	}
+
+	handleToggleNewPopover = (bool) => {
+		this.setState({ newPopover: bool });
+	}
+
 	render() {
 		const { infoToolClick, onGlobalSetting } = this.props;
 		return(
 			<ToolWrapper>
 				<ToolPart>
-					<FAIcon icon={faFile} onClick={this.props.openNewDialog}/>
+					<Popover
+						isOpen={this.state.newPopover}
+						position={['bottom', 'left']}
+						onClickOutside={() => this.handleToggleNewPopover(false)}
+						content={(
+							<PopupWrapper>
+								<PopoverRow
+									onClick={() => {
+										this.handleToggleNewPopover(false);
+										this.props.newPage()
+									}}
+								>
+									New page
+								</PopoverRow>
+								<PopoverRow
+									bottom={false}
+									onClick={() => {
+										this.handleToggleNewPopover(false);
+										this.props.newArticle()
+									}}
+								>
+									New article
+								</PopoverRow>
+							</PopupWrapper>
+						)}
+					>
+						<FAIcon icon={faFile} onClick={() => this.handleToggleNewPopover(true)}/>
+					</Popover>
 					<FAIcon icon={faFile} onClick={() => this.props.addComponent()} />
 				</ToolPart>
 				<ToolPart>
