@@ -53,7 +53,10 @@ class Footer extends React.Component {
 		const { settings, editable, onChange } = this.props;
 		const { socialIconGroup } = settings;
 		return (
-			<Section width="50%" center>
+			<Section
+				center={settings.centerSection}
+				backgroundColor={settings.sectionBackground}
+			>
 				<FooterContainer>
 					<Company
 						html={settings.companyName}
@@ -113,7 +116,9 @@ Footer.defaultSettings = {
 		{ href: '#', icon: 'faTwitter'},
 		{ href: '#', icon: 'faInstagram'},
 		{ href: '#', icon: 'faPinterest'},
-	]
+	],
+	centerSection: true,
+	sectionBackground: 'transparent',
 }
 
 Footer.settings = {

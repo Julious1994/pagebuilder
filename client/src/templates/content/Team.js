@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import EditableDiv from 'react-contenteditable';
 import Image from './../../components/Image';
+import Section from '../components/Section';
 
 const TeamWrapper = styled.div`
   display: flex;
@@ -80,84 +81,89 @@ class Team extends Component {
     const { settings, onChange, editable, onEdit } = this.props;
 		const { teamList = [], thumbnailRadius, variant } = settings;
     return(
-			<TeamWrapper
-				backgroundColor={settings.backgroundColor}
-				color={settings.color}
-				onClick={() => onEdit && onEdit()}
-				id="team"
+			<Section
+				center={settings.centerSection}
+				backgroundColor={settings.sectionBackground}
 			>
-				<h1>
-					<TeamTitle
-						html={settings.teamTitle}
-						disabled={!editable}
-						onChange={(e) => {
-							onChange && onChange('teamTitle', e.target.value)
-						}}
-					/>
-				</h1>
-        <TeamList variant={variant}>
-          {
-            teamList.map((team, i) => (
-              <TeamItem key={i} variant={variant}>
-                <TeamImageWrapper variant={variant}>
-                  <Image
-                    thumbnailRadius={thumbnailRadius}
-                    src={this.getImage(team.image)}
-                    alt="team1"
-										variant={variant}
-										editable={true}
-										onChange={(img) => {
-											team.image = img;
-											this.handleTeamChange(team, i);
-										}}
-                  />
-                </TeamImageWrapper>
-                {
-                  variant === 'avatar'
-                  ?
-                    <TeamInfo variant={variant}>
-                      <TeamMemberTitle
-                        html={team.title}
-                        disabled={false}
-                        onChange={(e) => {
-                          team.title = e.target.value;
-                          this.handleTeamChange(team, i);
-                        }}
-                      />
-                      <TeamMemberDescription
-												html={team.description}
-                        disabled={false}
-                        onChange={(e) => {
-                          team.description = e.target.value;
-                          this.handleTeamChange(team, i);
-                        }}
-											/>
-                    </TeamInfo>
-                  :
-                    <React.Fragment>
-                      <TeamMemberTitle
-                        html={team.title}
-                        disabled={false}
-                        onChange={(e) => {
-                          team.title = e.target.value;
-                          this.handleTeamChange(team, i);
-                        }}
-                      />
-                      <TeamMemberDescription
-												html={team.description}
-                        disabled={false}
-                        onChange={(e) => {
-                          team.description = e.target.value;
-                          this.handleTeamChange(team, i);
-                        }}
-											/>
-                    </React.Fragment>
-                }
-              </TeamItem>
-            ))
-          }
-        </TeamList>
-      </TeamWrapper>
+				<TeamWrapper
+					backgroundColor={settings.backgroundColor}
+					color={settings.color}
+					onClick={() => onEdit && onEdit()}
+					id="team"
+				>
+					<h1>
+						<TeamTitle
+							html={settings.teamTitle}
+							disabled={!editable}
+							onChange={(e) => {
+								onChange && onChange('teamTitle', e.target.value)
+							}}
+						/>
+					</h1>
+					<TeamList variant={variant}>
+						{
+							teamList.map((team, i) => (
+								<TeamItem key={i} variant={variant}>
+									<TeamImageWrapper variant={variant}>
+										<Image
+											thumbnailRadius={thumbnailRadius}
+											src={this.getImage(team.image)}
+											alt="team1"
+											variant={variant}
+											editable={true}
+											onChange={(img) => {
+												team.image = img;
+												this.handleTeamChange(team, i);
+											}}
+										/>
+									</TeamImageWrapper>
+									{
+										variant === 'avatar'
+										?
+											<TeamInfo variant={variant}>
+												<TeamMemberTitle
+													html={team.title}
+													disabled={false}
+													onChange={(e) => {
+														team.title = e.target.value;
+														this.handleTeamChange(team, i);
+													}}
+												/>
+												<TeamMemberDescription
+													html={team.description}
+													disabled={false}
+													onChange={(e) => {
+														team.description = e.target.value;
+														this.handleTeamChange(team, i);
+													}}
+												/>
+											</TeamInfo>
+										:
+											<React.Fragment>
+												<TeamMemberTitle
+													html={team.title}
+													disabled={false}
+													onChange={(e) => {
+														team.title = e.target.value;
+														this.handleTeamChange(team, i);
+													}}
+												/>
+												<TeamMemberDescription
+													html={team.description}
+													disabled={false}
+													onChange={(e) => {
+														team.description = e.target.value;
+														this.handleTeamChange(team, i);
+													}}
+												/>
+											</React.Fragment>
+									}
+								</TeamItem>
+							))
+						}
+					</TeamList>
+				</TeamWrapper>
+			</Section>
     )
   }
 }
@@ -185,12 +191,16 @@ Team.defaultSettings = {
 	variant: 'team',
 	thumbnailRadius: '50%',
 	teamTitle: 'Meet Our Team',
+	centerSection: false,
+	sectionBackground: 'transparent',
 }
 
 Team.settings = {
   backgroundColor: 'color',
   teamList: 'increment',
 	color: 'color',
+	centerSection: 'boolean',
+	sectionBackground: 'color',
 }
 
 export default Team;

@@ -88,49 +88,48 @@ class Contact extends React.Component {
 		const { settings, onChange, editable } = this.props;
 		const { title, name=true, email=true, message=true, namePlaceholder, messagePlaceholder, emailPlaceholder, buttonText, actionUrl } = settings;
 		return (
-		<Section
-			center={settings.centerSection}
-			backgroundColor={settings.sectionBackground}
-			contentWidth={settings.contentWidth}
-		>
-			<ContactUsWrapper
-				backgroundColor={settings.backgroundColor}
-				color={settings.color}
+			<Section
+				center={settings.centerSection}
+				backgroundColor={settings.sectionBackground}
 			>
-				<Title
-					html={title}
-					disabled={false}
-					onChange={(e) => {
-						onChange('title', e.target.value);
-					}}
-				/>
-				<ContentWrapper>
-					<form action={actionUrl} method="post" onSubmit={this.handleSubmit} onReset={this.handleReset}>
-						<FieldWrapper>
-							<InputWrapper
-								enabled={name}
-								placeholder={namePlaceholder}
-								type="text"
-							/>
-							<InputWrapper
-								enabled={email}
-								placeholder={emailPlaceholder}
-								type="email"
-							/>
-							<InputWrapper
-								enabled={settings.phone}
-								placeholder={settings.phonePlaceholder}
-								type="text"
-							/>
-							<TextAreaWrapper enabled={message} rows="10" placeholder={messagePlaceholder}></TextAreaWrapper>
-						</FieldWrapper>
-						<ButtonWrapper>
-							{settings.submitTitle}
-						</ButtonWrapper>
-						<CancelButton type="reset" value={settings.resetTitle} />
-					</form>
-				</ContentWrapper>
-			</ContactUsWrapper>
+				<ContactUsWrapper
+					backgroundColor={settings.backgroundColor}
+					color={settings.color}
+				>
+					<Title
+						html={title}
+						disabled={!editable}
+						onChange={(e) => {
+							onChange('title', e.target.value);
+						}}
+					/>
+					<ContentWrapper>
+						<form action={actionUrl} method="post" onSubmit={this.handleSubmit} onReset={this.handleReset}>
+							<FieldWrapper>
+								<InputWrapper
+									enabled={name}
+									placeholder={namePlaceholder}
+									type="text"
+								/>
+								<InputWrapper
+									enabled={email}
+									placeholder={emailPlaceholder}
+									type="email"
+								/>
+								<InputWrapper
+									enabled={settings.phone}
+									placeholder={settings.phonePlaceholder}
+									type="text"
+								/>
+								<TextAreaWrapper enabled={message} rows="10" placeholder={messagePlaceholder}></TextAreaWrapper>
+							</FieldWrapper>
+							<ButtonWrapper>
+								{settings.submitTitle}
+							</ButtonWrapper>
+							<CancelButton type="reset" value={settings.resetTitle} />
+						</form>
+					</ContentWrapper>
+				</ContactUsWrapper>
 			</Section>
 		)
 	}
@@ -147,31 +146,25 @@ Contact.defaultSettings = {
 	messagePlaceholder: "Message",
 	submitTitle: "Send",
 	resetTitle: "Clear",
-	actionUrl: "/contact",
 	centerSection: false,
 	sectionBackground: 'transparent',
-	contentWidth: 100,
 }
 
 Contact.settings = {
 	backgroundColor: 'color',
 	color: 'color',
+	centerSection: 'boolean',
 	sectionBackground: 'color',
-	contentWidth: {
-		type: 'number',
-	},
 	emailPlaceholder: 'string',
 	namePlaceholder: 'string',
 	phonePlaceholder: 'string',
 	messagePlaceholder: 'string',
-	actionUrl: 'string',
 	submitTitle: 'string',
 	resetTitle: 'string',
 	name: 'boolean',
 	message: 'boolean',
 	phone: 'boolean',
 	email: 'boolean',
-	centerSection: 'boolean',
 }
 
 export default Contact;

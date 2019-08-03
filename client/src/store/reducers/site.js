@@ -53,14 +53,14 @@ export default function(state = initialState, action) {
 		}
 		case SET_COMPONENT: {
 			const { component } = payload;
-			const { type } = component;
+			const { type, defaultProps = {} } = component;
 			if(type === 'content') {
 				const { site, currentPageIndex } = state;
 				const Component = contents[component.component] || {};
 				const block = Component.component;
 				return produce(state, draft => {
 					const page = draft.site.pages[draft.currentPageIndex];
-					const blockState = JSON.parse(JSON.stringify(block.defaultSettings));
+					const blockState = {...block.defaultSettings, ...defaultProps};
 					page.content.push({ ...component, state: {...blockState}, style: {}});
 					draft.site.pages[currentPageIndex] = page;
 				});
