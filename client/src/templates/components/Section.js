@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SectionWrapper = styled.div`
-	width: ${props => `${props.width}%` || '100%'};
+	width: ${props => props.center ? '50%' : '100%'};
 	${props => props.center ? 'margin: 0px auto;' : ''}
 `;
 
@@ -16,7 +16,6 @@ function Section(props) {
 			backgroundColor={props.backgroundColor}
 		>
 			<SectionWrapper
-				width={props.contentWidth}
 				center={props.center}
 			>
 				{props.children}
