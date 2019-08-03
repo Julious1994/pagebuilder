@@ -29,6 +29,7 @@ function Link({ link = {}, color, editable, linkSetting, ...props }) {
 				props.onSettingChange(link);
 			}}
 			href={link.href}
+			{...props}
 		>
 		<LinkAnchor
 			{...(!editable && {href: link.href})}
