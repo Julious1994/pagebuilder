@@ -9,7 +9,8 @@ import {
 	MOVE_DOWN,
 	MOVE_UP,
 	SAVE_SITE,
-	CLOSE_SAVE_DIALOG
+	CLOSE_SAVE_DIALOG,
+	CREATE_PAGE
 } from './actionType';
 
 export const openSetting = (level, block, index, type) => {
@@ -76,5 +77,12 @@ export const closeSaveDialog = () => ({
 export const saveSite = () => {
 	return {
 		type: SAVE_SITE,
+	}
+}
+
+export const createPage = (page) => {
+	return {
+		type: CREATE_PAGE,
+		payload: { page }
 	}
 }

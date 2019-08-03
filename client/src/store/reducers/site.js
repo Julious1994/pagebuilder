@@ -3,6 +3,7 @@ import { headers, contents, footers } from '../../core/templateMapper';
 import { level as levels } from './../../constant';
 import { swapElement } from './../reducer.helper';
 import { openComponentSetting } from './../actions';
+import { articleProps } from './../properties';
 import {
 	CHANGE_TITLE,
 	CHANGE_LOGO,
@@ -12,6 +13,7 @@ import {
 	MOVE_UP,
 	CLOSE_SAVE_DIALOG,
 	SAVE_SITE,
+	CREATE_PAGE,
 } from './../actionType';
 
 const initialState = {
@@ -20,6 +22,7 @@ const initialState = {
 		header: null,
 		footer: null,
 		isArticle: false,
+		have_blog: 0,
 		pages: [
 			{
 				title: 'About Us',
@@ -32,6 +35,10 @@ const initialState = {
 				state: {},
 			}
 		],
+		blog: {
+			slug: '/blog',
+			articles: [],
+		}
 	},
 	currentPageIndex: 0,
 	saveDialog: false,
@@ -142,6 +149,34 @@ export default function(state = initialState, action) {
 			return produce(state, draft => {
 				draft.saveDialog = false;
 			});
+		}
+		case CREATE_PAGE: {
+			const { page } = payload;
+			if(page.isArticle) {
+				page.isArticle = undefined;
+				return produce(state, draft => {
+					draft.site.articles.push({
+						...articleProps,
+						...page,
+					});
+				});
+			} else {
+				return produce(state, draft => {
+					page.isArticle = undefined;
+					draft.site.pages.push({
+						meta: { key: '', description: '' },
+						page_css: '',
+						page_js: '',
+						content: [],
+						state: {},
+						title: '',
+						...page,
+					});
+					const index = draft.site.pages.length - 1;
+					draft.currentPageIndex = index;
+				});
+			}
+			return state;
 		}
 		default:
 			return state;

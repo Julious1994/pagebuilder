@@ -11,3 +11,4 @@ export const MOVE_UP = 'MOVE_UP';
 export const MOVE_DOWN = 'MOVE_DOWN';
 export const SAVE_SITE = 'SAVE_SITE';
 export const CLOSE_SAVE_DIALOG = 'CLOSE_SAVE_DIALOG';
+export const CREATE_PAGE = 'CREATE_PAGE';
