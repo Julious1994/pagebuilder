@@ -76,6 +76,24 @@ class Footer2 extends React.Component {
 		}
 	}
 
+	handleAddLink = (link, index, listName) => {
+		const { settings, onChange } = this.props;
+		const list = settings[listName];
+		if(list && list[index]) {
+			list.splice(index+1, 0, {...link});
+			onChange(listName, list);
+		}
+	}
+
+	handleRemoveLink = (index, listName) => {
+		const { settings, onChange } = this.props;
+		const list = settings[listName];
+		if(list && list[index]) {
+			list.splice(index, 1);
+			onChange(listName, list);
+		}
+	}
+
 	render() {
 		const { settings, editable, onChange } = this.props;
 		const { linkGroup1, linkGroup2, socialIconGroup } = settings;
@@ -98,6 +116,8 @@ class Footer2 extends React.Component {
 										linkSetting={() => this.setState({ isOpen: !this.state.isOpen })}
 										editable={editable}
 										onSettingChange={(link) => this.handleLinkChange(link, i, 'linkGroup1')}
+										onAddLink={() => this.handleAddLink(link, i, 'linkGroup1')}
+										onRemoveLink={() => this.handleRemoveLink(i, 'linkGroup1')}
 									/>
 								))
 							}
@@ -117,6 +137,8 @@ class Footer2 extends React.Component {
 										linkSetting={() => this.setState({ isOpen: !this.state.isOpen })}
 										editable={editable}
 										onSettingChange={(link) => this.handleLinkChange(link, i, 'linkGroup2')}
+										onAddLink={() => this.handleAddLink(link, i, 'linkGroup2')}
+										onRemoveLink={() => this.handleRemoveLink(i, 'linkGroup2')}
 									/>
 								))
 							}
@@ -151,6 +173,8 @@ class Footer2 extends React.Component {
 											editable={editable}
 											link={link}
 											onSettingChange={(link) => this.handleLinkChange(link, i, 'socialIconGroup')}
+											onAddLink={() => this.handleAddLink(link, i, 'socialIconGroup')}
+											onRemoveLink={() => this.handleRemoveLink(i, 'socialIconGroup')}
 										>
 											<SocialIcon icon={brandIcons[link.icon]} />
 										</SocialLink>
