@@ -25,9 +25,12 @@ export const footers = {
 
 export const contents = {
 	1: { component: Team, thumbnail: 'team.jpg', title: 'Team 1', type: 'content'},
-	2: { component: Subscribe, thumbnail: 'subscribe.jpg', title: 'Subscribe 1', type: 'content'},
-	3: { component: Pricing1, thumbnail: 'pricing.jpg', title: 'Pricing 1', type: 'content'},
-	4: { component: ContactForm, thumbnail: 'contact.jpg', title: 'Contact 1', type: 'content'},
+	2: { component: Team, thumbnail: 'team.jpg', title: 'Team 1', type: 'content', defaultProps: { variant: 'avatar'}},
+	3: { component: Team, thumbnail: 'team.jpg', title: 'Team 1', type: 'content', defaultProps: { variant: 'avatar', thumbnailRadius: '1%'}},
+	4: { component: Subscribe, thumbnail: 'subscribe.jpg', title: 'Subscribe 1', type: 'content'},
+	5: { component: Pricing1, thumbnail: 'pricing.jpg', title: 'Pricing 1', type: 'content'},
+	6: { component: ContactForm, thumbnail: 'contact.jpg', title: 'Contact 1', type: 'content'},
+	7: { component: Team, thumbnail: 'team-square.png', title: 'Team 4', type: 'content', defaultProps: { thumbnailRadius: '5%'}},
 }
 
 export default {

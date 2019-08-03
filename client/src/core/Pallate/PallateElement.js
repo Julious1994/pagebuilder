@@ -21,6 +21,7 @@ const dragSource = {
 			component: props.id,
 			title: props.title,
 			type: props.type,
+			defaultProps: props.defaultProps,
 		}
 	}
 }
