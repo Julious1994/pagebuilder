@@ -1,17 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle, faSortUp, faCog, faSortDown } from '@fortawesome/free-solid-svg-icons';
 
-import { closeComponentSetting } from './../../store/actions';
 
 const TabWrapper = styled.div`
 	position: absolute;
 	right: 10px;
 	border-radius: 40px;
-	top: 10px;
+	top: ${props => props.top};
 	background-color: #1F1F1F;
+	z-index: 2;
 `;
 
 const MenuIcon = styled(FontAwesomeIcon)`
@@ -24,9 +23,11 @@ const MenuIcon = styled(FontAwesomeIcon)`
 
 class ComponentSettingTab extends React.Component {
 	render() {
-		const { closeComponentSetting, openSetting, moveUp, moveDown } = this.props;
+		const { type, closeComponentSetting, openSetting, moveUp, moveDown } = this.props;
+		let top = type === 'header' ? '101%' :'10px';
+		top = type === 'footer' ? '-60px' : top;
 		return(
-			<TabWrapper>
+			<TabWrapper top={top}>
 				<MenuIcon
 					icon={faSortUp}
 					onClick={(e) => {
@@ -61,8 +62,4 @@ class ComponentSettingTab extends React.Component {
 	}
 }
 
-const mapStateToDispatch = dispatch => ({
-	closeComponentSetting: () => dispatch(closeComponentSetting()),
-});
-
-export default connect(null, mapStateToDispatch)(ComponentSettingTab);
+export default ComponentSettingTab;

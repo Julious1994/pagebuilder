@@ -62,7 +62,7 @@ class Editor extends Component {
 	}
 
 	renderComponent(block, mapping, index, type) {
-		const { openSetting, componentSetting, openComponentSetting, moveUp, moveDown, editable } = this.props;
+		const { openSetting, componentSetting, openComponentSetting, moveUp, moveDown, editable, closeComponentSetting } = this.props;
 		const mappedBlock = mapping[block.component] || {};
 		const Component = mappedBlock.component;
 		const showSetting = componentSetting.type === type && componentSetting.templateIndex === index;
@@ -87,6 +87,8 @@ class Editor extends Component {
 						openSetting={() => openSetting(level.COMPONENT, block, index, type)}
 						moveUp={() => moveUp(index)}
 						moveDown={() => moveDown(index)}
+						type={type}
+						closeComponentSetting={closeComponentSetting}
 					/>
 				}
 			</ComponentWrapper>
@@ -160,6 +162,7 @@ const mapDispatchToProps = (dispatch) => ({
 	openComponentSetting: (index, type) => dispatch(openComponentSetting(index, type)),
 	moveUp: (index) => dispatch(moveUp(index, dispatch)),
 	moveDown: (index) => dispatch(moveDown(index)),
+	closeComponentSetting: () => dispatch(closeComponentSetting()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropTarget('CARD',dropProps, dropCollect)(Editor));
