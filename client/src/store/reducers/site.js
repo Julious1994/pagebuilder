@@ -14,11 +14,11 @@ import {
 	CLOSE_SAVE_DIALOG,
 	SAVE_SITE,
 	CREATE_PAGE,
+	OPEN_PAGE
 } from './../actionType';
 
 const initialState = {
 	site: {
-		_id: 1,
 		header: null,
 		footer: null,
 		isArticle: false,
@@ -26,6 +26,7 @@ const initialState = {
 		pages: [
 			{
 				title: 'About Us',
+				name: 'About us',
 				slug: 'about-us',
 				path: '/about-us',
 				meta: { key: '', description: '' },
@@ -177,6 +178,14 @@ export default function(state = initialState, action) {
 				});
 			}
 			return state;
+		}
+		case OPEN_PAGE: {
+			const { pageIndex } = payload;
+			return produce(state, draft => {
+				if(draft.currentPageIndex !== pageIndex) {
+					draft.currentPageIndex = pageIndex;
+				}
+			});
 		}
 		default:
 			return state;

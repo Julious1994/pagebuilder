@@ -27,3 +27,14 @@ export const getPageContent = (pages, pageIndex) => {
 	const page = pages[pageIndex];
 	return page.content;
 }
+
+export const getPageList = (site) => {
+	const pages = site.pages;
+	const list = pages.map(page => {
+		return {
+			name: page.name,
+			slug: page.slug,
+		}
+	});
+	return list;
+}

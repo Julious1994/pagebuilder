@@ -10,8 +10,11 @@ import {
 	MOVE_UP,
 	SAVE_SITE,
 	CLOSE_SAVE_DIALOG,
-	CREATE_PAGE
+	CREATE_PAGE,
+	OPEN_PAGE
 } from './actionType';
+
+import Http from './../services/http';
 
 export const openSetting = (level, block, index, type) => {
 	return {
@@ -74,7 +77,9 @@ export const closeSaveDialog = () => ({
 	type: CLOSE_SAVE_DIALOG,
 });
 
-export const saveSite = () => {
+export const saveSite = (site) => {
+	const service = new Http();
+	service.post("rest/sites/", site).then(res => console.log('res', res));
 	return {
 		type: SAVE_SITE,
 	}
@@ -84,5 +89,13 @@ export const createPage = (page) => {
 	return {
 		type: CREATE_PAGE,
 		payload: { page }
+	}
+}
+
+export const openPage = (pageIndex) => {
+	console.log(pageIndex);
+	return {
+		type: OPEN_PAGE,
+		payload: { pageIndex },
 	}
 }
