@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFile, faCircle, faCog, faQuestionCircle, faPaintBrush, faSave } from '@fortawesome/free-solid-svg-icons'
+import { faFile, faFileCode, faFolderOpen, faCog, faQuestionCircle, faPaintBrush, faSave } from '@fortawesome/free-solid-svg-icons'
 import Popover from 'react-tiny-popover';
 
 const ToolWrapper = styled.div`
@@ -84,7 +84,8 @@ class Tools extends Component {
 					>
 						<FAIcon icon={faFile} onClick={() => this.handleToggleNewPopover(true)}/>
 					</Popover>
-					<FAIcon icon={faFile} onClick={() => this.props.addComponent()} />
+					<FAIcon icon={faFolderOpen} onClick={this.props.openPage} />
+					<FAIcon icon={faFileCode} onClick={() => this.props.addComponent()} />
 				</ToolPart>
 				<ToolPart>
 					<FAIcon icon={faPaintBrush} onClick={() => onGlobalSetting && onGlobalSetting()}/>
