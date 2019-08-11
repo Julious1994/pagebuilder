@@ -53,6 +53,7 @@ const CancelButton = styled.button`
 
 const Title = styled.h2`
 	margin-top: 0px;
+	margin-bottom: 0px;
 `;
 
 class InfoDialog extends React.Component {
@@ -66,13 +67,12 @@ class InfoDialog extends React.Component {
 				ariaHideApp={false}
 			>
 				<ContentWrapper>
-					<Title>Confirmation</Title>
-					<div>
-						Your page saved successfully.
-						Are you want to view page?
-					</div>
+					<Title>Success</Title>
+					<p>Page saved succefully.</p>
 					<Field>
-						<ButtonWrapper>View Page</ButtonWrapper>
+						<ButtonWrapper>
+							View Page
+						</ButtonWrapper>
 						<CancelButton onClick={onClose}>Close</CancelButton>
 					</Field>
 				</ContentWrapper>
