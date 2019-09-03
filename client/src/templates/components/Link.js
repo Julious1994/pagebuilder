@@ -18,6 +18,7 @@ const LinkAnchor = styled.a`
 function Link({ link = {}, color, editable, linkSetting, ...props }) {
 	const [isOpen, setIsOpen] = useState(false);
 	const togglePopover = (open) => {
+		open && props.onMenuClick(link);
 		setIsOpen(open);
 	}
 	return(
