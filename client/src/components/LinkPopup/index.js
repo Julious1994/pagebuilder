@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Popover from 'react-tiny-popover';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes, faTrash, faPlus, faLink } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faTrash, faPlus, faLink, faFolderPlus } from '@fortawesome/free-solid-svg-icons';
 
 import Input from './../PropertyInput';
 
@@ -72,7 +72,7 @@ class LinkPopup extends React.Component {
 	}
 
 	render() {
-		const { isOpen, onClickOutside, href, onAddLink, onRemoveLink } = this.props;
+		const { isOpen, onClickOutside, href, onAddLink, onRemoveLink, onAddChildLink } = this.props;
 		const { option, linkToggle } = this.state;
 		return (
 			<Popover
@@ -85,6 +85,10 @@ class LinkPopup extends React.Component {
 								<IconL icon={faLink} onClick={this.handleToogleLink}/>
 								<IconL icon={faPlus} onClick={onAddLink}/>
 								<IconL icon={faTrash} onClick={onRemoveLink}/>
+								{
+									onAddChildLink &&
+									<IconL icon={faFolderPlus} onClick={onAddChildLink}/>
+								}
 								<IconL icon={faTimes} onClick={onClickOutside} />
 							</Row>
 
