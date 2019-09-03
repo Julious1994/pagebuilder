@@ -6,6 +6,7 @@ import EditableDiv from 'react-contenteditable';
 import { changeTitle, changeLogo } from './../../store/actions';
 import Image from './../../components/Image';
 import Link from './../components/Link';
+import Menu from './../components/Menu';
 
 const LogoWrapper = styled.div`
 	margin-top: 10px;
@@ -84,21 +85,11 @@ class HeaderTemplate extends Component {
 					}
 				</LogoWrapper>
 				<LinkWrapper>
-					<UL>
-						{
-							links.map((link, i) => (
-								<LI key={i}>
-									<Link
-										color="#fff"
-										key={i}
-										link={link}
-										editable={editable}
-										onSettingChange={(link) => this.handleLinkChange(link, i, 'links')}
-									/>
-								</LI>
-							))
-						}
-					</UL>
+					<Menu
+						editable={editable}
+						menuList={links}
+						onMenuChange={(links) => onChange('links', links)}
+					/>
 				</LinkWrapper>
 			</Header>
 		)
@@ -118,7 +109,17 @@ HeaderTemplate.defaultSettings = {
 	logoImage: false,
 	logoColor: '#fff',
 	links: [
-		{ href: '#', title: 'Home', },
+		{
+			href: '#',
+			title: 'Home',
+			subLinks: [
+				{
+					href: '#',
+					title: 'Sub home',
+					subLinks: [{ href: '#', title: 'Home 3'}]
+				},
+			]
+		},
 		{ href: '#', title: 'About', },
 		{ href: '#', title: 'Contact', },
 	]
@@ -139,6 +140,6 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = state => ({
 	title: state.sites.title,
 	logo: state.sites.logo,
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderTemplate);
