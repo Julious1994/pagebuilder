@@ -2,7 +2,6 @@ import { produce } from 'immer';
 import { headers, contents, footers } from '../../core/templateMapper';
 import { level as levels } from './../../constant';
 import { swapElement } from './../reducer.helper';
-import { openComponentSetting } from './../actions';
 import { articleProps } from './../properties';
 import {
 	CHANGE_TITLE,
@@ -63,7 +62,7 @@ export default function(state = initialState, action) {
 			const { component } = payload;
 			const { type, defaultProps = {} } = component;
 			if(type === 'content') {
-				const { site, currentPageIndex } = state;
+				const { currentPageIndex } = state;
 				const Component = contents[component.component] || {};
 				const block = Component.component;
 				return produce(state, draft => {
@@ -120,7 +119,6 @@ export default function(state = initialState, action) {
 		case MOVE_UP: {
 			const { index } = payload;
 			if(index > 0) {
-				const { site, currentPageIndex } = state;
 				return produce(state, draft => {
 					const page = draft.site.pages[draft.currentPageIndex];
 					page.content = swapElement(page.content, index - 1, index);
@@ -139,7 +137,6 @@ export default function(state = initialState, action) {
 					draft.site.pages[draft.currentPageIndex] = {...page};
 				}
 			});
-			return state;
 		}
 		case SAVE_SITE: {
 			return produce(state, draft => {
@@ -177,7 +174,6 @@ export default function(state = initialState, action) {
 					draft.currentPageIndex = index;
 				});
 			}
-			return state;
 		}
 		case OPEN_PAGE: {
 			const { pageIndex } = payload;

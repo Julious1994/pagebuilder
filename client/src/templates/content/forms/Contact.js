@@ -10,10 +10,6 @@ const ContactUsWrapper = styled.div`
 	color: ${props => props.color || 'initial'}
 `;
 
-const RowWrapper = styled.div`
-margin: 0px auto;
-text-align: center;
-`;
 const Title = styled(EditableDiv)`
 margin: 0px auto;
 text-align: center;
@@ -86,7 +82,7 @@ class Contact extends React.Component {
 
 	render() {
 		const { settings, onChange, editable } = this.props;
-		const { title, name=true, email=true, message=true, namePlaceholder, messagePlaceholder, emailPlaceholder, buttonText, actionUrl } = settings;
+		const { title, name=true, email=true, message=true, namePlaceholder, messagePlaceholder, emailPlaceholder, actionUrl } = settings;
 		return (
 			<Section
 				center={settings.centerSection}

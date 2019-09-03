@@ -28,8 +28,6 @@ const SelectWrapper = styled.select`
 	color: white;
 `;
 
-const Label = styled.div``;
-
 const Col = styled.div`
 	display: flex;
 	flex: 1;
@@ -37,13 +35,6 @@ const Col = styled.div`
 
 const RadioText = styled.span`
 	line-height: 2;
-`;
-
-const Icon = styled(FontAwesomeIcon)`
-	position: absolute;
-	right: 7px;
-	top: 4px;
-	cursor: pointer;
 `;
 
 const IconL = styled(FontAwesomeIcon)`

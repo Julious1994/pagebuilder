@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Tools from './Tools';
-import Accordian, { AccordianItem } from './../../components/Accordian';
 import InfoDialog from './InfoDialog';
 import SettingPanel from '../SettingPanel';
 import { getPageList } from './../../store/selector';

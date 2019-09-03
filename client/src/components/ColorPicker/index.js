@@ -55,7 +55,7 @@ class ColorPicker extends React.Component {
   };
 
   render() {
-    let { value, name } = this.props;
+    let { value } = this.props;
     const color = [null, undefined].includes(value) ? defaultColor : value;
     return (
       <div>

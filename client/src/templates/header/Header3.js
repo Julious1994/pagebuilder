@@ -11,26 +11,11 @@ const LogoWrapper = styled.div`
 	padding-left: 5px;
 `;
 
-const LinkWrapper = styled.div`
-	padding-right: 5px;
-`;
-
 const Header = styled.div`
 	display: flex;
 	justify-content: space-between;
 	background-color: ${props => props.backgroundColor || 'rgb(20, 157, 204)'};
 	height: 60px;
-`;
-
-const UL = styled.ul`
-	list-style: none;
-	display: flex;
-	color: white;
-	cursor: pointer;
-`;
-
-const LI = styled.li`
-	padding: 5px;
 `;
 
 const LogoText = styled(EditableDiv)`

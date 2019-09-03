@@ -5,7 +5,6 @@ import EditableDiv from 'react-contenteditable';
 
 import { changeTitle, changeLogo } from './../../store/actions';
 import Image from './../../components/Image';
-import Link from './../components/Link';
 import Menu from './../components/Menu';
 
 const LogoWrapper = styled.div`
@@ -22,17 +21,6 @@ const Header = styled.div`
 	display: flex;
 	justify-content: space-between;
 	background-color: ${props => props.backgroundColor || 'rgb(20, 157, 204)'};
-`;
-
-const UL = styled.ul`
-	list-style: none;
-	display: flex;
-	color: white;
-	cursor: pointer;
-`;
-
-const LI = styled.li`
-	padding: 5px;
 `;
 
 const LogoText = styled(EditableDiv)`

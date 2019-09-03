@@ -1,5 +1,4 @@
 import { level as levels } from './../constant';
-import templateMapper from './../core/templateMapper';
 
 export const getBlock = (id, level, site, pageId, type) => {
 	const page = site.pages[pageId];

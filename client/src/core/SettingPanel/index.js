@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import {connect} from 'react-redux';
 
 import Field from './Field';
-import Input from './../../components/PropertyInput';
-import ColorPicker from './../../components/ColorPicker';
 import { changeLogo, onSettingChange } from './../../store/actions';
 import templateMapper from './../templateMapper';
 import { level as levels } from './../../constant';
@@ -74,7 +72,6 @@ class SettingPanel extends Component {
 		const { title = "Settings", selectedSetting, block, settingLevel } = this.props;
 		const mappings = this.getMappings(selectedSetting);
 		const settingValues = this.getValues(settingLevel, block);
-		console.log('block', block, mappings);
 		return (
 			<PanelWrapper>
 				<PanelTitle>{title}</PanelTitle>

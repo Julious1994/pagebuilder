@@ -13,10 +13,6 @@ const customStyles = {
   }
 };
 
-const Label = styled.div`
-	font-weight: bolder;
-`;
-
 const Field = styled.div`
 	padding: 10px;
 	${props => props.fullWidth ? 'width: 100%' : ''}

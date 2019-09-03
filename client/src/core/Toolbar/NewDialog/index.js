@@ -20,15 +20,6 @@ const ContentWrapper = styled.div`
 	flex-wrap: wrap;
 	flex-direction: column;
 `;
-const ButtonWrapper = styled.button`
-	background-color: #3B85BC;
-	border: none;
-	padding: 10px 20px;
-	color: white;
-	font-weight: bolder;
-	margin: 5px;
-	cursor: pointer;
-`;
 
 const CancelButton = styled.button`
 	background-color: #fff;
@@ -68,7 +59,7 @@ class NewDialog extends React.Component {
 	}
 
 	componentDidUpdate() {
-		const { isArticle = false, isPost = false } = this.props;
+		const { isArticle = false } = this.props;
 		const { documentProps } = this.state;
 		if(documentProps.isArticle !== isArticle) {
 			documentProps.isArticle = isArticle;

@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import EditableDiv from 'react-contenteditable';
 
 import Popover from './../../components/LinkPopup';
-
-const LinkText = styled(EditableDiv)`
-	outline: none;
-	color: ${props => props.color || '#4E4E4E'};
-`;
 
 const LinkAnchor = styled.a`
 	text-decoration: none;
