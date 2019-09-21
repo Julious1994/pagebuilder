@@ -4,7 +4,7 @@ import { DragSource } from 'react-dnd'
 import styled from 'styled-components';
 
 const ControlWrapper = styled.div`
-	${props => props.isImage ? `height: 75px;` : `padding: 30px;`}
+	line-height: 0;
 	font-weight: bolder;
 	border: 1px solid gray;
 	margin-bottom: 10px;
