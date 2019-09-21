@@ -72,7 +72,7 @@ class Editor extends Component {
 		return (
 			<ComponentWrapper
 				onClick={() => {
-					openComponentSetting(index, type)
+					editable && openComponentSetting(index, type)
 				}}
 			>
 				<Component
