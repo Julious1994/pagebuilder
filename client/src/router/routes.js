@@ -6,7 +6,7 @@ import View from './../core/view';
 
 const routes = () => (
 	<Switch>
-		<Route exact path="/builder" exact component={Builder} />
+		<Route exact path="/" exact component={Builder} />
 		<Route path="/view" exact component={View} />
 	</Switch>
 );
