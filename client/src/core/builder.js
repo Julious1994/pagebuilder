@@ -18,6 +18,7 @@ class Builder extends Component {
 
 	render() {
 		// const { site } = this.state;
+		console.log(this.props);
 		const { siteHeader, siteFooter, pageContent } = this.props;
 		return(
 			<DndProvider backend={HTML5Backend}>
@@ -26,7 +27,7 @@ class Builder extends Component {
 						<Editor onDrop={this.handleDrop} header={siteHeader} footer={siteFooter} content={pageContent} />
 					</div>
 					<div style={{ width: '25%', borderLeft: '1px solid black', height: '100%' }}>
-						<Toolbar />
+						<Toolbar history={this.props.history} />
 					</div>
 				</div>
 			</DndProvider>
