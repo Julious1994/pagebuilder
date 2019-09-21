@@ -30,7 +30,7 @@ const SubscribeContainer = styled.div`
 
 class Subscribe extends React.Component {
 	render() {
-		const { settings = {}, onChange } = this.props;
+		const { settings = {}, onChange, editable } = this.props;
 		return (
 			<Section
 				center={settings.centerSection}
@@ -44,7 +44,7 @@ class Subscribe extends React.Component {
 						<h1>
 							<EditableDiv
 								html={settings.title}
-								disabled={false}
+								disabled={!editable}
 								onChange={(e) => {
 									const { value } = e.target;
 									onChange && onChange('title', value);
@@ -54,7 +54,7 @@ class Subscribe extends React.Component {
 					</div>
 					<EditableDiv
 						html={settings.subscribeText}
-						disabled={false}
+						disabled={!editable}
 						onChange={(e) => {
 							const { value } = e.target;
 							onChange && onChange('subscribeText', value);

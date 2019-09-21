@@ -110,7 +110,7 @@ class Team extends Component {
 											src={this.getImage(team.image)}
 											alt="team1"
 											variant={variant}
-											editable={true}
+											editable={editable}
 											onChange={(img) => {
 												team.image = img;
 												this.handleTeamChange(team, i);
@@ -123,7 +123,7 @@ class Team extends Component {
 											<TeamInfo variant={variant}>
 												<TeamMemberTitle
 													html={team.title}
-													disabled={false}
+													disabled={!editable}
 													onChange={(e) => {
 														team.title = e.target.value;
 														this.handleTeamChange(team, i);
@@ -131,7 +131,7 @@ class Team extends Component {
 												/>
 												<TeamMemberDescription
 													html={team.description}
-													disabled={false}
+													disabled={!editable}
 													onChange={(e) => {
 														team.description = e.target.value;
 														this.handleTeamChange(team, i);
@@ -142,7 +142,7 @@ class Team extends Component {
 											<React.Fragment>
 												<TeamMemberTitle
 													html={team.title}
-													disabled={false}
+													disabled={!editable}
 													onChange={(e) => {
 														team.title = e.target.value;
 														this.handleTeamChange(team, i);
@@ -150,7 +150,7 @@ class Team extends Component {
 												/>
 												<TeamMemberDescription
 													html={team.description}
-													disabled={false}
+													disabled={!editable}
 													onChange={(e) => {
 														team.description = e.target.value;
 														this.handleTeamChange(team, i);
