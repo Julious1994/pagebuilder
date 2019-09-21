@@ -47,7 +47,6 @@ class Toolbar extends Component {
 	}
 
 	handleView = () => {
-		console.log('view');
 		const { history } = this.props;
 		this.props.viewPage();
 		history.push('/view');

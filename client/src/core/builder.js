@@ -18,7 +18,6 @@ class Builder extends Component {
 
 	render() {
 		// const { site } = this.state;
-		console.log(this.props);
 		const { siteHeader, siteFooter, pageContent } = this.props;
 		return(
 			<DndProvider backend={HTML5Backend}>
