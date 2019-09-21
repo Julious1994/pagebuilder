@@ -13,7 +13,8 @@ import {
 	saveSite,
 	openPageSetting,
 	createPage,
-	openPage
+	openPage,
+	viewPage,
 } from './../../store/actions';
 import Pallate from '../Pallate';
 import SaveDialog from './SaveDialog';
@@ -43,6 +44,13 @@ class Toolbar extends Component {
 
 	toggleOpenDialog = () => {
 		this.setState({ openDialog: !this.state.openDialog });
+	}
+
+	handleView = () => {
+		console.log('view');
+		const { history } = this.props;
+		this.props.viewPage();
+		history.push('/view');
 	}
 
 	render() {
@@ -77,6 +85,7 @@ class Toolbar extends Component {
 					<SaveDialog
 						isOpen={saveDialog}
 						onClose={this.props.closeSaveDialog}
+						onView={this.handleView}
 					/>
 					<NewDialog
 						isOpen={this.state.newDialog}
@@ -119,7 +128,8 @@ const mapDispatchToProps = (dispatch) => ({
 	closeSaveDialog: () => dispatch(closeSaveDialog()),
 	saveSite: (site) => dispatch(saveSite(site)),
 	createPage: (props) => dispatch(createPage(props)),
-	openPage: (pageIndex) => dispatch(openPage(pageIndex))
+	openPage: (pageIndex) => dispatch(openPage(pageIndex)),
+	viewPage: () => dispatch(viewPage()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);

@@ -13,3 +13,4 @@ export const SAVE_SITE = 'SAVE_SITE';
 export const CLOSE_SAVE_DIALOG = 'CLOSE_SAVE_DIALOG';
 export const CREATE_PAGE = 'CREATE_PAGE';
 export const OPEN_PAGE = 'OPEN_PAGE';
+export const VIEW_PAGE = 'VIEW_PAGE';

@@ -13,7 +13,8 @@ import {
 	CLOSE_SAVE_DIALOG,
 	SAVE_SITE,
 	CREATE_PAGE,
-	OPEN_PAGE
+	OPEN_PAGE,
+	VIEW_PAGE,
 } from './../actionType';
 
 const initialState = {
@@ -181,6 +182,12 @@ export default function(state = initialState, action) {
 				if(draft.currentPageIndex !== pageIndex) {
 					draft.currentPageIndex = pageIndex;
 				}
+			});
+		}
+		case VIEW_PAGE: {
+			return produce(state, draft => {
+				draft.editable = false;
+				draft.saveDialog = false;
 			});
 		}
 		default:

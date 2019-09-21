@@ -54,7 +54,7 @@ const Title = styled.h2`
 
 class InfoDialog extends React.Component {
 	render() {
-		const { isOpen, onClose } = this.props;
+		const { isOpen, onClose, onView } = this.props;
 		return(
 			<Modal
 				isOpen={isOpen}
@@ -66,7 +66,7 @@ class InfoDialog extends React.Component {
 					<Title>Success</Title>
 					<p>Page saved succefully.</p>
 					<Field>
-						<ButtonWrapper>
+						<ButtonWrapper onClick={onView}>
 							View Page
 						</ButtonWrapper>
 						<CancelButton onClick={onClose}>Close</CancelButton>

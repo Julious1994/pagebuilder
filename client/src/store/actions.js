@@ -11,7 +11,8 @@ import {
 	SAVE_SITE,
 	CLOSE_SAVE_DIALOG,
 	CREATE_PAGE,
-	OPEN_PAGE
+	OPEN_PAGE,
+	VIEW_PAGE
 } from './actionType';
 
 import Http from './../services/http';
@@ -97,5 +98,11 @@ export const openPage = (pageIndex) => {
 	return {
 		type: OPEN_PAGE,
 		payload: { pageIndex },
+	}
+}
+
+export const viewPage = () => {
+	return {
+		type: VIEW_PAGE,
 	}
 }
