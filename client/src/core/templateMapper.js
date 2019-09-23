@@ -6,6 +6,8 @@ import Team from './../templates/content/Team';
 import Subscribe from './../templates/content/forms/Subscribe';
 import Pricing1 from './../templates/content/pricing/Pricing1';
 import ContactForm from './../templates/content/forms/Contact';
+import Content1 from './../templates/content/contents/content1';
+import Content2 from './../templates/content/contents/content2';
 
 import Footer1 from './../templates/footers/Footer';
 import Footer2 from './../templates/footers/Footer2';
@@ -31,6 +33,8 @@ export const contents = {
 	5: { component: Pricing1, thumbnail: 'pricing.jpg', title: 'Pricing 1', type: 'content'},
 	6: { component: ContactForm, thumbnail: 'contact.jpg', title: 'Contact 1', type: 'content'},
 	7: { component: Team, thumbnail: 'team-square.png', title: 'Team 4', type: 'content', defaultProps: { thumbnailRadius: '5%'}},
+	8: { component: Content1, thumbnail: 'content1.png', title: 'Content 1', type: 'content'},
+	9: { component: Content2, thumbnail: 'content2.png', title: 'Content 2', type: 'content'}
 }
 
 export default {
