@@ -11,6 +11,7 @@ const TabWrapper = styled.div`
 	top: ${props => props.top};
 	background-color: #1F1F1F;
 	z-index: 2;
+	opacity: 0.8;
 `;
 
 const MenuIcon = styled(FontAwesomeIcon)`
