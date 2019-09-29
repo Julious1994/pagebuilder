@@ -17,14 +17,14 @@ const LinkAnchor = styled.a`
 
 function Link({ link = {}, color, editable, linkSetting, ...props }) {
 	const [isOpen, setIsOpen] = useState(false);
-	const togglePopover = (open) => {
+	const togglePopover = (e, open) => {
 		open && props.onMenuClick(link);
 		setIsOpen(open);
 	}
 	return(
 		<Popover
 			isOpen={isOpen}
-			onClickOutside={() => togglePopover(false)}
+			onClickOutside={() => togglePopover(null, false)}
 			onChange={(href) => {
 				link.href = href;
 				props.onSettingChange(link);
@@ -34,7 +34,8 @@ function Link({ link = {}, color, editable, linkSetting, ...props }) {
 		>
 		<LinkAnchor
 			{...(!editable && {href: link.href})}
-			onClick={() => editable && togglePopover(true)}
+			onClick={(e) => editable && togglePopover(e, true)}
+			onDoubleClick={(e) => console.log('dbl click')}
 		>
 			<LinkText
 				color={color}
