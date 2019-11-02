@@ -29,6 +29,7 @@ const FooterContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding: 50px 0px;
+	color: ${props => props.color || '#464646'};
 `;
 const SocialIcon = styled(FontAwesomeIcon)`
 	padding: 10px;
@@ -57,7 +58,9 @@ class Footer extends React.Component {
 				center={settings.centerSection}
 				backgroundColor={settings.sectionBackground}
 			>
-				<FooterContainer>
+				<FooterContainer
+					color={settings.color}
+				>
 					<Company
 						html={settings.companyName}
 						disabled={!editable}
@@ -92,7 +95,7 @@ class Footer extends React.Component {
 									link={link}
 									onSettingChange={(link) => this.handleLinkChange(link, i, 'socialIconGroup')}
 								>
-									<SocialIcon icon={brandIcons[link.icon]} />
+									<SocialIcon icon={brandIcons[link.icon]} color={settings.color} />
 								</SocialLink>
 							))
 						}
@@ -123,7 +126,9 @@ Footer.defaultSettings = {
 
 Footer.settings = {
   backgroundColor: 'color',
-  color: 'color',
+	color: 'color',
+	centerSection: 'boolean',
+	sectionBackground: 'color',
 }
 
 export default Footer;

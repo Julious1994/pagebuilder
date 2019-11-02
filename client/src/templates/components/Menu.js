@@ -4,6 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import Link from './Link';
 
+const popupStyle = {
+	top: 'unset !important',
+	left: '-200px !important',
+	zIndex: 1000,
+};
+
 const UL = styled.ul`
 	list-style: none;
 	display: flex;
@@ -147,6 +153,7 @@ class Menu extends React.Component {
 				<Link
 					link={menu}
 					editable={editable}
+					popupStyle={popupStyle}
 					onMenuClick={() => this.menuClick(index, level)}
 					onAddLink={() => this.handleLinkChange(level, index, menu, 'add')}
 					onRemoveLink={() => this.handleLinkChange(level, index, menu, 'remove')}
@@ -217,6 +224,7 @@ class Menu extends React.Component {
 				<Link
 					link={link}
 					editable={editable}
+					popupStyle={popupStyle}
 					onAddLink={() => this.handleLinkChange(level, index, link, 'add')}
 					onRemoveLink={() => this.handleLinkChange(level, index, link, 'remove')}
 					onAddChildLink={() => this.handleLinkChange(level, index, link, 'subLink')}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import EditableDiv from 'react-contenteditable';
 
@@ -13,12 +13,16 @@ const LinkAnchor = styled.a`
 	text-decoration: none;
 	line-height: 2em;
 	color: #4E4E4E;
+	& > .react-tiny-popover-container {
+		${props => props.editable && props.popupStyle}
+	}
 `;
 
 function Link({ link = {}, color, editable, linkSetting, ...props }) {
 	const [isOpen, setIsOpen] = useState(false);
+	const linkRef = useRef();
 	const togglePopover = (e, open) => {
-		open && props.onMenuClick(link);
+		open && props.onMenuClick && props.onMenuClick(link);
 		setIsOpen(open);
 	}
 	return(
@@ -30,12 +34,20 @@ function Link({ link = {}, color, editable, linkSetting, ...props }) {
 				props.onSettingChange(link);
 			}}
 			href={link.href}
+			contentDestination={linkRef.current}
 			{...props}
 		>
 		<LinkAnchor
+			ref={e => linkRef.current = e}
 			{...(!editable && {href: link.href})}
-			onClick={(e) => editable && togglePopover(e, true)}
-			onDoubleClick={(e) => console.log('dbl click')}
+			editable={editable}
+			popupStyle={props.popupStyle}
+			onMouseEnter={(e) => editable && togglePopover(e, true)}
+			onMouseLeave={(e) => {
+				if(!linkRef.current.contains(e.relatedTarget)) {
+					editable && togglePopover(e, false)
+				}
+			}}
 		>
 			<LinkText
 				color={color}
