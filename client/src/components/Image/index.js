@@ -107,7 +107,6 @@ class Image extends React.Component {
 		const type = file.type.split('/')[1];
 		const size = file.size;
 		const mbSize = size / (1024*1024);
-		console.log(mbSize);
 		if(!allowedTypes.includes(type)) {
 			alert("Image must be in " + allowedTypes.toString() + " format");
 			return false;
@@ -155,7 +154,6 @@ class Image extends React.Component {
 								<IconL icon={faLink} onClick={this.handleToogleLink}/>
 								<IconL icon={faUpload} onClick={this.handleImageClick}/>
 								<IconL icon={faEdit} onClick={this.handleEditImage}/>
-								{/* <IconL icon={faTimes} onClick={onClickOutside} /> */}
 							</Row>
 
 							{
@@ -183,7 +181,6 @@ class Image extends React.Component {
 					>
 						<ItemImage
 							src={src}
-							onClick={this.handleImageClick}
 							thumbnailRadius={this.props.thumbnailRadius}
 						/>
 						{
