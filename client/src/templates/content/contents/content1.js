@@ -4,6 +4,8 @@ import EditableDiv from 'react-contenteditable';
 
 import Section from '../../components/Section';
 import Image from '../../../components/Image';
+import EditableArea from '../../components/EditableDiv';
+import {getImage} from './../../../common.func';
 
 const ContentWrapper = styled.div`
 	display: flex;
@@ -27,15 +29,6 @@ const Title = styled(EditableDiv)`
 
 function Content1(props) {
 	const { settings, onChange, editable, onEdit } = props;
-	function getImage(img) {
-		let imgSrc = img;
-		if(img && img.name) {
-			imgSrc = window.URL.createObjectURL(img)
-		} else {
-			imgSrc = `./images/${img}`
-		}
-		return imgSrc;
-	}
 	return(
 		<Section
 			center={settings.centerSection}
@@ -51,10 +44,11 @@ function Content1(props) {
 							/>
 					</Header>
 					<Description>
-						<Title
+						<EditableArea
 							html={settings.description}
-							disabled={!editable}
-							onChange={(e) => onChange('description', e.target.value)}
+							disabled={editable}
+							toolbarStyle={{right: 'unset', width: '160%', top: '-8em'}}
+							onChange={(e) => onChange('description', e)}
 						/>
 					</Description>
 				</Column>

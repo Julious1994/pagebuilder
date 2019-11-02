@@ -8,6 +8,16 @@ import Section from './../components/Section';
 import Link from './../components/Link';
 import SocialLink from './../components/SocialLink';
 
+const popupStyle = {
+	top: 'unset !important',
+	left: 'unset !important',
+};
+
+const socialPopupStyle = {
+	top: 'unset !important',
+	left: '-160px !important',
+}
+
 const SocialWrapper = styled.div`
 	flex: 1;
 `;
@@ -20,7 +30,7 @@ const AboutWrapper = styled.div`
 	flex: 2;
 `;
 const FooterContainer = styled.div`
-	background-color: #3B3D44;
+	background-color: ${props => props.backgroundColor};
 	display: flex;
 	flex-direction: column;
 	padding: 50px 0px;
@@ -98,8 +108,12 @@ class Footer2 extends React.Component {
 		const { settings, editable, onChange } = this.props;
 		const { linkGroup1, linkGroup2, socialIconGroup } = settings;
 		return (
-			<Section>
-				<FooterContainer>
+			<Section
+				backgroundColor={settings.sectionBackground}
+			>
+				<FooterContainer
+					backgroundColor={settings.backgroundColor}
+				>
 					<FooterInfo>
 						<LinkList>
 							<Title
@@ -112,6 +126,7 @@ class Footer2 extends React.Component {
 									<Link
 										key={i}
 										color="#797F8E"
+										popupStyle={popupStyle}
 										link={link}
 										linkSetting={() => this.setState({ isOpen: !this.state.isOpen })}
 										editable={editable}
@@ -133,6 +148,7 @@ class Footer2 extends React.Component {
 									<Link
 										key={i}
 										color="#797F8E"
+										popupStyle={popupStyle}
 										link={link}
 										linkSetting={() => this.setState({ isOpen: !this.state.isOpen })}
 										editable={editable}
@@ -171,6 +187,7 @@ class Footer2 extends React.Component {
 										<SocialLink
 											key={i}
 											editable={editable}
+											popupStyle={socialPopupStyle}
 											link={link}
 											onSettingChange={(link) => this.handleLinkChange(link, i, 'socialIconGroup')}
 											onAddLink={() => this.handleAddLink(link, i, 'socialIconGroup')}
@@ -198,7 +215,8 @@ class Footer2 extends React.Component {
 
 Footer2.defaultSettings = {
 	linkColor: "#797F8E",
-	backgroundColor: undefined,
+	backgroundColor: '#3B3D44',
+	sectionBackground: '#3B3D44',
 	color: 'initial',
 	groupTitle1: 'Group1',
 	groupTitle2: 'Group2',
@@ -231,6 +249,7 @@ Footer2.settings = {
 	color: 'color',
 	linkGroup1: 'increment',
 	linkGroup2: 'increment',
+	sectionBackground: 'color',
 }
 
 export default Footer2;

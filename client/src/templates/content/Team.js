@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import EditableDiv from 'react-contenteditable';
 import Image from './../../components/Image';
 import Section from '../components/Section';
+import EditableArea from './../components/EditableDiv';
+import {getImage} from './../../common.func';
 
 const TeamWrapper = styled.div`
   display: flex;
@@ -54,7 +56,7 @@ const TeamInfo = styled.div`
   }
 `;
 
-const TeamMemberDescription = styled(EditableDiv)`
+const TeamMemberDescription = styled(EditableArea)`
 	outline: none;
 `;
 
@@ -65,16 +67,6 @@ class Team extends Component {
 		const { teamList } = settings;
 		teamList[i] = {...team};
 		onChange('teamList', teamList);
-	}
-
-	getImage = (img) => {
-		let imgSrc = img;
-		if(img && img.name) {
-			imgSrc = window.URL.createObjectURL(img)
-		} else {
-			imgSrc = `./images/${img}`
-		}
-		return imgSrc;
 	}
 
   render() {
@@ -107,7 +99,7 @@ class Team extends Component {
 									<TeamImageWrapper variant={variant}>
 										<Image
 											thumbnailRadius={thumbnailRadius}
-											src={this.getImage(team.image)}
+											src={getImage(team.image)}
 											alt="team1"
 											variant={variant}
 											editable={editable}
@@ -133,7 +125,7 @@ class Team extends Component {
 													html={team.description}
 													disabled={!editable}
 													onChange={(e) => {
-														team.description = e.target.value;
+														team.description = e;
 														this.handleTeamChange(team, i);
 													}}
 												/>
@@ -152,7 +144,8 @@ class Team extends Component {
 													html={team.description}
 													disabled={!editable}
 													onChange={(e) => {
-														team.description = e.target.value;
+														console.log(e);
+														team.description = e;
 														this.handleTeamChange(team, i);
 													}}
 												/>

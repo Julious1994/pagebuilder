@@ -5,6 +5,7 @@ import EditableDiv from 'react-contenteditable';
 
 import { changeTitle, changeLogo } from './../../store/actions';
 import Image from './../../components/Image';
+import {getImage} from './../../common.func';
 
 const LogoWrapper = styled.div`
 	margin-top: 10px;
@@ -39,10 +40,7 @@ class HeaderTemplate extends Component {
 	render() {
 		const { settings, editable, onChange } = this.props;
 		const { logoImage, logo, logoText } = settings;
-		let logoSrc = logo;
-		if(logo && logo.name) {
-			logoSrc = window.URL.createObjectURL(logo)
-		}
+		let logoSrc = getImage(logo);
 		return (
 			<Header
 				backgroundColor={settings.backgroundColor}

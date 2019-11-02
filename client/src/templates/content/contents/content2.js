@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import EditableDiv from 'react-contenteditable';
 
 import Section from '../../components/Section';
+import EditableArea from '../../components/EditableDiv';
 
 const ContentWrapper = styled.div`
 	margin: 50px 0px;
@@ -36,10 +37,15 @@ function Content2(props) {
 							/>
 					</Header>
 					<Description>
-						<Title
+						<EditableArea
 							html={settings.description}
 							disabled={!editable}
-							onChange={(e) => onChange('description', e.target.value)}
+							toolbarStyle={{
+								right: 'unset',
+								width: '100%',
+								top: '-6em',
+							}}
+							onChange={(e) => onChange('description', e)}
 						/>
 					</Description>
 			</ContentWrapper>

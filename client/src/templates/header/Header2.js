@@ -10,6 +10,12 @@ import { changeTitle, changeLogo } from './../../store/actions';
 import Image from './../../components/Image';
 import SocialLink from './../components/SocialLink';
 import Menu from './../components/Menu';
+import {getImage} from './../../common.func';
+
+const popupStyle = {
+	top: 'unset !important',
+	left: '-180px !important',
+};
 
 const LogoWrapper = styled.div`
 	margin-top: 10px;
@@ -67,10 +73,7 @@ class HeaderTemplate extends Component {
 	render() {
 		const { settings, editable, onChange } = this.props;
 		const { logoImage, logo, logoText, socialIconGroup, links } = settings;
-		let logoSrc = logo;
-		if(logo && logo.name) {
-			logoSrc = window.URL.createObjectURL(logo)
-		}
+		let logoSrc = getImage(logo);
 		return (
 			<Header
 				backgroundColor={settings.backgroundColor}
@@ -102,6 +105,7 @@ class HeaderTemplate extends Component {
 								<LI key={i}>
 									<SocialLink
 										editable={editable}
+										popupStyle={popupStyle}
 										link={link}
 										onSettingChange={(link) => this.handleLinkChange(link, i, 'socialIconGroup')}
 									>

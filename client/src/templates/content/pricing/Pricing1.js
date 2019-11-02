@@ -4,6 +4,7 @@ import EditableDiv from 'react-contenteditable';
 
 import Section from '../../components/Section';
 import LinkButton from './../../components/LinkButton';
+import EditableArea from '../../components/EditableDiv';
 
 const PricingContainer = styled.section`
 	padding: 0px 20px;
@@ -112,12 +113,17 @@ class Pricings01 extends React.Component {
 												}
 											/>
 										</strong>
-											<Title
+											<EditableArea
 												html={item.description}
 												disabled={!editable}
+												toolbarStyle={{
+													width: '160%',
+													top: '-8em',
+													right: 'unset',
+												}}
 												onChange={(e) =>
 													this.handlePricingListChange(
-														this.getUpdatedListItem('description', e.target.value, item), i
+														this.getUpdatedListItem('description', e, item), i
 													)
 												}
 											/>
