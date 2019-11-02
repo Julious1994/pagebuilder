@@ -9,7 +9,7 @@ import Input from './../PropertyInput';
 const PopupWrapper = styled.div`
 	background-color: white;
 	border: 1px solid #AFAFAF;
-	padding: 10px;
+	padding: 10px 0px;
 	border-radius: 3px;
 	position: relative;
 `;
@@ -69,7 +69,8 @@ class LinkPopup extends React.Component {
 			<Popover
 					isOpen={isOpen}
 					onClickOutside={onClickOutside}
-					position={['top', 'bottom']} // preferred position
+					// position={['top', 'bottom']} // preferred position
+					contentDestination={this.props.contentDestination}
 					content={(
 						<PopupWrapper>
 							<Row justify="flex-end">
