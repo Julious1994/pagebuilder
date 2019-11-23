@@ -14,6 +14,7 @@ import {
 	moveDown,
 } from './../store/actions';
 import { level } from './../constant';
+import Expand from './../components/Expand';
 
 import ComponentSettingTab from './SettingPanel/ComponentSettingTab';
 
@@ -54,6 +55,12 @@ const ComponentWrapper = styled.div`
 `;
 
 class Editor extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			collapse: [],
+		};
+	}
 
 	renderHeader(header) {
 		const { onChange } = this.props;
@@ -102,8 +109,27 @@ class Editor extends Component {
 		onSettingChange(newBlock, level, index, type);
 	}
 
+	onToggle(index) {
+		const { collapse = [] } = this.state;
+		const _index = collapse.indexOf(index);
+		if(_index !== -1) {
+			collapse.splice(_index, 1);
+		} else {
+			collapse.push(index);
+		}
+		this.setState({ collapse });
+	}
+
+	isExpanded(index) {
+		const {collapse = []} = this.state;
+		if(collapse.indexOf(index) !== -1) {
+			return false;
+		}
+		return true;
+	}
+
 	render() {
-		const { connectDropTarget, header, content, footer } = this.props;
+		const { connectDropTarget, header, content, footer, editable } = this.props;
 		return (
 			<EditorWrapper
 				ref={instance => connectDropTarget(findDOMNode(instance))}
@@ -124,9 +150,10 @@ class Editor extends Component {
 						<React.Fragment>
 							{
 								content.map((block, i) => (
-									<React.Fragment key={i}>
+
+									<Expand key={i} title={block.title} index={i} editable={editable} isExpand={this.isExpanded(i)} onToggle={() => this.onToggle(i)}>
 										{this.renderComponent(block, mapper.contents, i, 'content')}
-									</React.Fragment>
+									</Expand>
 								))
 							}
 						</React.Fragment>
