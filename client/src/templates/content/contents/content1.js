@@ -46,7 +46,7 @@ function Content1(props) {
 					<Description>
 						<EditableArea
 							html={settings.description}
-							disabled={editable}
+							disabled={!editable}
 							toolbarStyle={{right: 'unset', width: '160%', top: '-8em'}}
 							onChange={(e) => onChange('description', e)}
 						/>
