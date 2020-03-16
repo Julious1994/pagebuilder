@@ -58,6 +58,7 @@ class HeaderTemplate extends Component {
 		return (
 			<Header backgroundColor={settings.backgroundColor}>
 				<LogoWrapper>
+					{/* <nav className="navbar"> */}
 					{
 						logoImage ?
 							<Image src={logoSrc} editable={true} onChange={this.handleChange}  />
@@ -69,6 +70,7 @@ class HeaderTemplate extends Component {
 								onChange={(e) => onChange('logoText', e.target.value)}
 							/>
 					}
+					{/* </nav> */}
 				</LogoWrapper>
 				<LinkWrapper>
 					<Menu

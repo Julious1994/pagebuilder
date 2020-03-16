@@ -7,12 +7,7 @@ import { changeTitle, changeLogo } from './../../store/actions';
 import Image from './../../components/Image';
 import {getImage} from './../../common.func';
 
-const LogoWrapper = styled.div`
-	margin-top: 10px;
-	padding-left: 5px;
-`;
-
-const Header = styled.div`
+const Header = styled.header`
 	display: flex;
 	justify-content: space-between;
 	background-color: ${props => props.backgroundColor || 'rgb(20, 157, 204)'};
@@ -45,19 +40,23 @@ class HeaderTemplate extends Component {
 			<Header
 				backgroundColor={settings.backgroundColor}
 				>
-				<LogoWrapper>
-					{
-						logoImage ?
-						<Image src={logoSrc} editable={true} onChange={this.handleChange}  />
-						:
-						<LogoText
-							html={logoText || ''}
-							disabled={!editable}
-							color={settings.logoColor}
-							onChange={(e) => onChange('logoText', e.target.value)}
-						/>
-					}
-				</LogoWrapper>
+				<div className="container">
+					<nav className="navbar">
+						<a href="https://www.froala.com">
+							{
+								logoImage ?
+								<Image src={logoSrc} editable={true} onChange={this.handleChange}  />
+								:
+								<LogoText
+									html={logoText || ''}
+									disabled={!editable}
+									color={settings.logoColor}
+									onChange={(e) => onChange('logoText', e.target.value)}
+								/>
+							}
+						</a>
+					</nav>
+				</div>
 			</Header>
 		)
 	}

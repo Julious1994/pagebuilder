@@ -84,7 +84,7 @@ class HeaderTemplate extends Component {
 							<Image src={logoSrc} editable={true} onChange={this.handleChange}  />
 							:
 							<LogoText
-								html={logoText || ''}
+						 		html={logoText || ''}
 								disabled={!editable}
 								color={settings.logoColor}
 								onChange={(e) => onChange('logoText', e.target.value)}
@@ -99,10 +99,10 @@ class HeaderTemplate extends Component {
 					/>
 				</LinkWrapper>
 				<LinkWrapper>
-					<UL>
+					<UL className="navbar-nav col-2 justify-content-end d-none d-md-flex">
 						{
 							socialIconGroup.map((link, i) => (
-								<LI key={i}>
+								<LI key={i} className="nav-item">
 									<SocialLink
 										editable={editable}
 										popupStyle={popupStyle}
