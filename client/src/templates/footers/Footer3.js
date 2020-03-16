@@ -21,17 +21,24 @@ class Footer3 extends React.Component {
 		const { settings, onChange, editable } = this.props;
 		return (
 			<Section>
-				<FooterContainer>
-					<Copyright
-						html={settings.copyright}
-						disabled={!editable}
-						onChange={(e) => onChange('copyright', e.target.value)}
-					/>
-				</FooterContainer>
+				<footer className="fdb-block footer-small">
+				<div className="container">
+    <div className="row text-center">
+      <div className="col">
+						<Copyright
+							html={settings.copyright}
+							disabled={!editable}
+							onChange={(e) => onChange('copyright', e.target.value)}
+						/>
+					</div>
+					</div>
+					</div>
+				</footer>
 			</Section>
 		)
 	}
 }
+
 
 Footer3.defaultSettings = {
 	backgroundColor: undefined,
