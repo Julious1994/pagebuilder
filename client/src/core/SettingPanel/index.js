@@ -53,6 +53,8 @@ class SettingPanel extends Component {
 		// settings[key] = value;
 		const newBlock = {...block};
 		if(level === levels.GLOBAL) {
+
+		} else if(level === levels.PAGE) {
 			newBlock[key] = value;
 		} else {
 			newBlock.state[key] = value;
