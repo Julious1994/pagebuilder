@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faNewspaper, faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 Modal.defaultStyles.overlay.backgroundColor = 'rgba(0,0,0,0.7)';
@@ -45,6 +45,29 @@ const SelectWrapper = styled.select`
 	margin: 10px auto;
 `;
 
+const Grid = styled.div`
+	margin: 10px auto;
+	width: 100%;
+`;
+
+const Row = styled.div`
+	display: flex;
+	flex-diretion: row;
+	border-bottom: 0.5px solid #AFAFAF;
+	padding: 8px 0px;
+`;
+
+const ActionView = styled.div`
+	display: flex;
+	flex-diretion: row;
+	justify-content: space-between;
+	width: 20%;
+`;
+
+const ActionButton = styled(FontAwesomeIcon)`
+	cursor: pointer;
+`;
+
 const Icon = styled(FontAwesomeIcon)`
 	position: absolute;
 	right: 20px;
@@ -52,25 +75,48 @@ const Icon = styled(FontAwesomeIcon)`
 	cursor: pointer;
 `;
 
+const PageTitle = styled.div`
+	flex: 1;
+	font-weight: 600;
+`;
+
 class OpenDialog extends React.Component {
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			pageIndex: undefined,
-		}
-	}
 
-	handleChange = (e) => {
-		this.setState({ pageIndex: e.target.value });
-	}
-
-	handleOpen = () => {
+	handleOpen = (pageIndex) => {
 		const { openPage } = this.props;
-		const { pageIndex } = this.state;
-		if(pageIndex !== undefined) {
-			openPage && openPage(pageIndex);
-		}
+		openPage && openPage(pageIndex);
+	}
+
+	handlePublish = () => {
+
+	}
+
+	renderActionButtons(page, index) {
+		return (
+			<ActionView>
+				<ActionButton
+					icon={faNewspaper}
+					onClick={this.handlePublish}
+				/>
+				<ActionButton
+					icon={faPencilAlt}
+					onClick={() => this.handleOpen(index)}
+				/>
+				<ActionButton
+					icon={faTrash}
+					onClick={this.handlePublish}
+				/>
+			</ActionView>
+		);
+	}
+
+	renderPage(page) {
+		return (
+			<PageTitle>
+				{page.name}
+			</PageTitle>
+		);
 	}
 
 	render() {
@@ -85,14 +131,16 @@ class OpenDialog extends React.Component {
 				<ContentWrapper>
 					<Title>Open Page</Title>
 					<Icon icon={faTimes} onClick={onClose}/>
-					<SelectWrapper value={this.state.pageIndex} onChange={this.handleChange}>
-						<option value={null}>Select page</option>
+					<Grid>
 						{
 							pageList.map((page, index) => (
-								<option key={index} value={index}>{page.name}</option>
+								<Row key={index}>
+									{this.renderPage(page)}
+									{this.renderActionButtons(page, index)}
+								</Row>
 							))
 						}
-					</SelectWrapper>
+					</Grid>
 					<ButtonWrapper onClick={this.handleOpen}>Open</ButtonWrapper>
 				</ContentWrapper>
 			</Modal>
