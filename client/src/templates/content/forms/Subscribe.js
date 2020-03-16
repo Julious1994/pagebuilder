@@ -8,14 +8,6 @@ const Input = styled.input`
 	padding: 8px 20px;
 	flex: 0.5;
 `;
-const Button = styled.input`
- 	background-color: #4182FB;
- 	border: none;
- 	color: white;
-	padding: 10px 20px;
-	font-weight: bolder;
-	cursor: pointer;
-`;
 const Field = styled.div`
 	padding: 10px;
 	display: flex;
@@ -33,41 +25,50 @@ class Subscribe extends React.Component {
 		const { settings = {}, onChange, editable } = this.props;
 		return (
 			<Section
+				className="fdb-block"
 				center={settings.centerSection}
 				backgroundColor={settings.sectionBackground}
 			>
 				<SubscribeContainer
+					className="container"
 					backgroundColor={settings.backgroundColor}
 					color={settings.color}
 				>
-					<div>
-						<h1>
+					<div className="row justify-content-center">
+						<div className="col-12 col-md-8 col-lg-6 text-center">
+
+							<h1>
+								<EditableDiv
+									html={settings.title}
+									disabled={!editable}
+									onChange={(e) => {
+										const { value } = e.target;
+										onChange && onChange('title', value);
+									}}
+								/>
+							</h1>
+
 							<EditableDiv
-								html={settings.title}
+								html={settings.subscribeText}
 								disabled={!editable}
 								onChange={(e) => {
 									const { value } = e.target;
-									onChange && onChange('title', value);
+									onChange && onChange('subscribeText', value);
 								}}
 							/>
-						</h1>
+							<form>
+								<div className="input-group mt-4 mb-4">
+									<input type="text" className="form-control" placeholder="Enter your email address" />
+									<div className="input-group-append">
+										<button className="btn btn-primary" type="button">Submit</button>
+									</div>
+								</div>
+							</form>
+						</div>
 					</div>
-					<EditableDiv
-						html={settings.subscribeText}
-						disabled={!editable}
-						onChange={(e) => {
-							const { value } = e.target;
-							onChange && onChange('subscribeText', value);
-						}}
-					/>
-					<form>
-						<Field>
-							<Input name="email" />
-							<Button type="submit" value="Submit" />
-						</Field>
-					</form>
 				</SubscribeContainer>
 			</Section>
+
 		)
 	}
 }
