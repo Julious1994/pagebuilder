@@ -4,13 +4,15 @@ import ColorPicker from './../../components/ColorPicker';
 import Increment from './../../components/Increment';
 import PropertyInput from './../../components/PropertyInput';
 import Switch from '../../components/Boolean';
+import TextArea from '../../components/TextArea';
 
 const fieldControlMapper = {
     color: ColorPicker,
 		increment: Increment,
 		string: PropertyInput,
 		boolean: Switch,
-		number: PropertyInput
+		number: PropertyInput,
+		text: TextArea
 }
 
 const FieldWrapper = styled.div`
