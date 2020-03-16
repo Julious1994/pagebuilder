@@ -150,10 +150,7 @@ class Editor extends Component {
 						<React.Fragment>
 							{
 								content.map((block, i) => (
-
-									<Expand key={i} title={block.title} index={i} editable={editable} isExpand={this.isExpanded(i)} onToggle={() => this.onToggle(i)}>
-										{this.renderComponent(block, mapper.contents, i, 'content')}
-									</Expand>
+									this.renderComponent(block, mapper.contents, i, 'content')
 								))
 							}
 						</React.Fragment>
