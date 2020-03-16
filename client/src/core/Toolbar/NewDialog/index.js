@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import styled from 'styled-components';
 
 import Input from './../../../components/PropertyInput';
+import Select from './../../../components/Select';
 
 Modal.defaultStyles.overlay.backgroundColor = 'rgba(0,0,0,0.7)';
 
@@ -43,7 +44,7 @@ const Field = styled.div`
 
 const FieldTitle = styled.div`
 	${props => props.lineHeight ? 'line-height: 2em' : ''}
-	width: ${props => props.width || '25%'};
+	width: ${props => props.width || '35%'};
 	font-weight: 500;
 `;
 
@@ -55,7 +56,14 @@ class NewDialog extends React.Component {
 			slug: '/',
 			name: 'page',
 			draft: true,
-		}
+			categoryId: '',
+		},
+		newCategory: '',
+		categories: [],
+	}
+
+	async componentDidMount() {
+		await this.getCategory();
 	}
 
 	componentDidUpdate() {
@@ -73,10 +81,26 @@ class NewDialog extends React.Component {
 		this.setState({ documentProps });
 	}
 
-	handleCreate = () => {
-		const { documentProps } = this.state;
+	handleCreate = async () => {
+		const { documentProps, newCategory } = this.state;
 		const { onCreate } = this.props;
-		onCreate && onCreate(documentProps);
+		console.log('doc', documentProps, newCategory);
+		if(newCategory) {
+			const category = await this.createCategory(newCategory);
+			onCreate && onCreate(documentProps);
+		}
+	}
+
+	getCategory = () => {
+
+	}
+
+	createCategory = async () => {
+
+	}
+
+	handleNewCategory = (value) => {
+		this.setState({ newCategory: value });
 	}
 
 	render() {
@@ -109,6 +133,16 @@ class NewDialog extends React.Component {
 							onChange={(value) => this.handleDocumentChange('slug', value)}
 						/>
 					</Field>
+					{
+						documentProps.isArticle &&
+						<Field>
+							<FieldTitle>Category</FieldTitle>
+							<Select
+								onNew={(e) => this.handleNewCategory(e)}
+								onChange={(categoryId) => this.handleDocumentChange('categoryId', categoryId)}
+							/>
+						</Field>
+					}
 					<Field>
 						<FieldTitle width="11%" lineHeight="2em">
 							Draft
