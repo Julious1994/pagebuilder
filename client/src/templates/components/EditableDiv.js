@@ -36,6 +36,7 @@ function EditableDiv(props) {
 	return (
 		<Container>
 			<Editor
+				className
 				readOnly={disabled}
 				toolbarOnFocus
 				editorState={editorState}
@@ -49,6 +50,7 @@ function EditableDiv(props) {
 					right: '-100%',
 					...props.toolbarStyle
 				}}
+				editorStyle={{ ...(disabled && {overflow: 'hidden'})}}
 				onBlur={handleChange}
 				onEditorStateChange={(state) => setEditorState(state)}
 			/>
