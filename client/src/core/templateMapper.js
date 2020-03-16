@@ -8,6 +8,10 @@ import Pricing1 from './../templates/content/pricing/Pricing1';
 import ContactForm from './../templates/content/forms/Contact';
 import Content1 from './../templates/content/contents/content1';
 import Content2 from './../templates/content/contents/content2';
+import Content3 from './../templates/content/contents/content3';
+import Content4 from './../templates/content/contents/content4';
+import Content5 from './../templates/content/contents/content5';
+import Content7 from './../templates/content/contents/content7';
 
 import Footer1 from './../templates/footers/Footer';
 import Footer2 from './../templates/footers/Footer2';
@@ -34,7 +38,11 @@ export const contents = {
 	6: { component: ContactForm, thumbnail: 'contact.jpg', title: 'Contact 1', type: 'content'},
 	7: { component: Team, thumbnail: 'team-square.png', title: 'Team 4', type: 'content', defaultProps: { thumbnailRadius: '5%'}},
 	8: { component: Content1, thumbnail: 'content1.png', title: 'Content 1', type: 'content'},
-	9: { component: Content2, thumbnail: 'content2.png', title: 'Content 2', type: 'content'}
+	9: { component: Content2, thumbnail: 'content2.png', title: 'Content 2', type: 'content'},
+	10: { component: Content3, thumbnail: 'content2.png', title: 'Content 3', type: 'content'},
+	11: { component: Content4, thumbnail: 'content2.png', title: 'Content 4', type: 'content'},
+	12: { component: Content5, thumbnail: 'content2.png', title: 'Content 5', type: 'content'},
+	14: { component: Content7, thumbnail: 'content2.png', title: 'Content 7', type: 'content'},
 }
 
 export default {
