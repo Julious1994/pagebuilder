@@ -40,7 +40,7 @@ const TeamItem = styled.div`
   ${props => props.variant === 'avatar' ? 'display: flex;' : ''}
 `;
 
-const TeamMemberTitle = styled(EditableDiv)`
+const TeamMemberTitle = styled(EditableArea)`
   font-weight: bolder;
   line-height: 2.5;
   outline: none;
@@ -117,7 +117,7 @@ class Team extends Component {
 													html={team.title}
 													disabled={!editable}
 													onChange={(e) => {
-														team.title = e.target.value;
+														team.title = e;
 														this.handleTeamChange(team, i);
 													}}
 												/>
@@ -136,7 +136,7 @@ class Team extends Component {
 													html={team.title}
 													disabled={!editable}
 													onChange={(e) => {
-														team.title = e.target.value;
+														team.title = e;
 														this.handleTeamChange(team, i);
 													}}
 												/>
@@ -170,14 +170,14 @@ Team.defaultProps = {
 
 Team.defaultSettings = {
 	teamList: [
-		{ title: 'Sara Doe', description: 'Wild question marks but little blind', image: 'team1.jpeg'},
-		{ title: 'Sara Doe', description: 'Wild question marks but little blind', image: 'team1.jpeg'},
-		{ title: 'Sara Doe', description: 'Wild question marks but little blind', image: 'team1.jpeg'},
-		{ title: 'Sara Doe', description: 'Wild question marks but little blind', image: 'team1.jpeg'},
-		{ title: 'Sara Doe', description: 'Wild question marks but little blind', image: 'team1.jpeg'},
-		{ title: 'Sara Doe', description: 'Wild question marks but little blind', image: 'team1.jpeg'},
-		{ title: 'Sara Doe', description: 'Wild question marks but little blind', image: 'team1.jpeg'},
-		{ title: 'Sara Doe', description: 'Wild question marks but little blind', image: 'team1.jpeg'},
+		{ title: '<p style="text-align:center;"><strong>Sara Doe</strong></p>', description: 'Wild question marks but little blind', image: 'team1.jpeg'},
+		{ title: '<p style="text-align:center;"><strong>Sara Doe</strong></p>', description: 'Wild question marks but little blind', image: 'team1.jpeg'},
+		{ title: '<p style="text-align:center;"><strong>Sara Doe</strong></p>', description: 'Wild question marks but little blind', image: 'team1.jpeg'},
+		{ title: '<p style="text-align:center;"><strong>Sara Doe</strong></p>', description: 'Wild question marks but little blind', image: 'team1.jpeg'},
+		{ title: '<p style="text-align:center;"><strong>Sara Doe</strong></p>', description: 'Wild question marks but little blind', image: 'team1.jpeg'},
+		{ title: '<p style="text-align:center;"><strong>Sara Doe</strong></p>', description: 'Wild question marks but little blind', image: 'team1.jpeg'},
+		{ title: '<p style="text-align:center;"><strong>Sara Doe</strong></p>', description: 'Wild question marks but little blind', image: 'team1.jpeg'},
+		{ title: '<p style="text-align:center;"><strong>Sara Doe</strong></p>', description: 'Wild question marks but little blind', image: 'team1.jpeg'},
 	],
 	color: '',
 	backgroundColor: '',

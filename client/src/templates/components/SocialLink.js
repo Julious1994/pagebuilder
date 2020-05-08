@@ -33,6 +33,7 @@ function SocialLink({ link = {}, editable, linkSetting, ...props }) {
 			contentDestination={linkRef.current}
 		>
 		<LinkAnchor
+			className="nav-link"
 			ref={e => linkRef.current = e}
 			editable={editable}
 			popupStyle={props.popupStyle}
