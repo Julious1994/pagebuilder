@@ -35,6 +35,7 @@ const Col = styled.div`
 
 const RadioText = styled.span`
 	line-height: 2;
+	color: #000;
 `;
 
 const IconL = styled(FontAwesomeIcon)`
@@ -74,14 +75,14 @@ class LinkPopup extends React.Component {
 					content={(
 						<PopupWrapper>
 							<Row justify="flex-end">
-								<IconL icon={faLink} onClick={this.handleToogleLink}/>
-								<IconL icon={faPlus} onClick={onAddLink}/>
-								<IconL icon={faTrash} onClick={onRemoveLink}/>
+								<IconL icon={faLink} color="#000" onClick={this.handleToogleLink}/>
+								<IconL icon={faPlus} color="#000" onClick={onAddLink}/>
+								<IconL icon={faTrash} color="#000" onClick={onRemoveLink}/>
 								{
 									onAddChildLink &&
-									<IconL icon={faFolderPlus} onClick={onAddChildLink}/>
+									<IconL icon={faFolderPlus} color="#000" onClick={onAddChildLink}/>
 								}
-								<IconL icon={faTimes} onClick={onClickOutside} />
+								<IconL icon={faTimes} color="#000" onClick={onClickOutside} />
 							</Row>
 
 							{
