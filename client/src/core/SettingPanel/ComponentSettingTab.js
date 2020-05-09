@@ -12,15 +12,24 @@ const TabWrapper = styled.div`
 	background-color: #1F1F1F;
 	z-index: 2;
 	opacity: 0.8;
+	display: flex;
 `;
 
-const MenuIcon = styled(FontAwesomeIcon)`
+const MenuWrapper = styled.div`
 	padding: 15px 25px;
-	width: 25px;
-	height: 25px;
-	cursor: pointer;
-	color: ${props => props.color || '#fff'};
 `;
+
+const menuIcon = {
+	width: 25,
+	height: 25,
+	cursor: 'pointer',
+}
+
+const MenuIcon = ({icon, onClick}) => (
+	<MenuWrapper onClick={onClick}>
+		<FontAwesomeIcon style={menuIcon} color={"#fff"} icon={icon} />
+	</MenuWrapper>
+)
 
 class ComponentSettingTab extends React.Component {
 	render() {
