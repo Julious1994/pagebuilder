@@ -39,10 +39,10 @@ export const contents = {
 	7: { component: Team, thumbnail: 'team-square.png', title: 'Team 4', type: 'content', defaultProps: { thumbnailRadius: '5%'}},
 	8: { component: Content1, thumbnail: 'content1.png', title: 'Content 1', type: 'content'},
 	9: { component: Content2, thumbnail: 'content2.png', title: 'Content 2', type: 'content'},
-	10: { component: Content3, thumbnail: 'content2.png', title: 'Content 3', type: 'content'},
-	11: { component: Content4, thumbnail: 'content2.png', title: 'Content 4', type: 'content'},
+	10: { component: Content3, thumbnail: 'content3.png', title: 'Content 3', type: 'content'},
+	11: { component: Content4, thumbnail: 'content4.png', title: 'Content 4', type: 'content'},
 	12: { component: Content5, thumbnail: 'content2.png', title: 'Content 5', type: 'content'},
-	14: { component: Content7, thumbnail: 'content2.png', title: 'Content 7', type: 'content'},
+	14: { component: Content7, thumbnail: 'content7.png', title: 'Content 7', type: 'content'},
 }
 
 export default {
