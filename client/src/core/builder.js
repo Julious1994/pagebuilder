@@ -22,10 +22,10 @@ class Builder extends Component {
 		return(
 			<DndProvider backend={HTML5Backend}>
 				<div style={{height: '100%', display: 'flex'}}>
-					<div style={{ width: '75%' }}>
+					<div style={{ width: '75%', flex: '1' }}>
 						<Editor onDrop={this.handleDrop} header={siteHeader} footer={siteFooter} content={pageContent} />
 					</div>
-					<div style={{ width: '25%', borderLeft: '1px solid black', height: '100%' }}>
+					<div style={{ maxWidth: '20%', borderLeft: '1px solid black', height: '100%' }}>
 						<Toolbar history={this.props.history} />
 					</div>
 				</div>

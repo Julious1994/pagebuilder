@@ -12,7 +12,7 @@ import { globalSettings, pageSettings } from './../settingProperties';
 const PanelWrapper = styled.div`
 	padding: 5px;
 	background-color: #5A6678;
-	height: calc(100% - 10px);
+	height: 100%;
 	overflow: hidden;
 `;
 
