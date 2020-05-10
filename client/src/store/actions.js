@@ -12,7 +12,8 @@ import {
 	CLOSE_SAVE_DIALOG,
 	CREATE_PAGE,
 	OPEN_PAGE,
-	VIEW_PAGE
+	VIEW_PAGE,
+	TOGGLE_PALLETE,
 } from './actionType';
 
 import Http from './../services/http';
@@ -22,6 +23,12 @@ export const openSetting = (level, block, index, type) => {
 	type: SHOW_SETTING,
 	payload: { block, level, index, type },
 }};
+
+export const togglePallete = () => {
+	return {
+		type: TOGGLE_PALLETE,
+	}
+}
 
 export const openPageSetting = (level, index) => {
 	return {

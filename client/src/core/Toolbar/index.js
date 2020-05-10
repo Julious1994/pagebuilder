@@ -15,6 +15,7 @@ import {
 	createPage,
 	openPage,
 	viewPage,
+	togglePallete,
 } from './../../store/actions';
 import Pallate from '../Pallate';
 import SaveDialog from './SaveDialog';
@@ -52,19 +53,26 @@ class Toolbar extends Component {
 		history.push('/view');
 	}
 
+	togglePallete= () => {
+		this.props.togglePallete();
+	}
+
 	render() {
-		const { openSetting, saveDialog, currentPageIndex, createPage } = this.props;
+		const { openSetting, saveDialog, currentPageIndex, createPage, showPallete } = this.props;
 		return(
 			<div style={{height: '100%', display: 'flex'}}>
-				<div style={{ width: '75%', overflow: 'auto' }}>
-					{
-						openSetting ?
-							<SettingPanel />
-						:
-							<Pallate />
-					}
-				</div>
-				<div style={{ width: '25%', borderLeft: '1px solid black', height: '100%' }}>
+				{
+					showPallete &&
+					<div style={{ width: '75%', overflow: 'auto', minWidth: 225 }}>
+						{
+							openSetting ?
+								<SettingPanel />
+							:
+								<Pallate />
+						}
+					</div>
+				}
+				<div style={{ width: 75, borderLeft: '1px solid black', height: '100%' }}>
 					<Tools
 						onClick={this.handleToolClick}
 						infoToolClick={this.toggleInfoDialogClose}
@@ -76,6 +84,7 @@ class Toolbar extends Component {
 						newPage={() => this.toggleNewDialog()}
 						newArticle={() => this.toggleNewDialog(true)}
 						openPage={this.toggleOpenDialog}
+						togglePallete={this.togglePallete}
 					/>
 					<InfoDialog
 						isOpen={this.state.infoPopup}
@@ -117,6 +126,7 @@ const mapStateToProps = (state) => {
 		currentPageIndex: state.sites.currentPageIndex,
 		site: state.sites.site,
 		pageList: getPageList(state.sites.site),
+		showPallete: state.setting.showPallete,
 	}
 }
 
@@ -129,6 +139,7 @@ const mapDispatchToProps = (dispatch) => ({
 	createPage: (props) => dispatch(createPage(props)),
 	openPage: (pageIndex) => dispatch(openPage(pageIndex)),
 	viewPage: () => dispatch(viewPage()),
+	togglePallete: () => dispatch(togglePallete())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);

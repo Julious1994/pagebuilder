@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFile, faFileCode, faFolderOpen, faCog, faQuestionCircle, faPaintBrush, faSave } from '@fortawesome/free-solid-svg-icons'
+import { faFile, faFileCode, faFolderOpen, faCog, faQuestionCircle, faPaintBrush, faSave, faList } from '@fortawesome/free-solid-svg-icons'
 import Popover from 'react-tiny-popover';
 
 const ToolWrapper = styled.div`
@@ -12,6 +12,7 @@ const ToolWrapper = styled.div`
 	height: calc(100% - 40px);
 	justify-content: space-between;
 	padding: 20px 0px;
+	height: 100%;
 `;
 
 const ToolPart = styled.div`
@@ -52,10 +53,11 @@ class Tools extends Component {
 	}
 
 	render() {
-		const { infoToolClick, onGlobalSetting } = this.props;
+		const { infoToolClick, onGlobalSetting, togglePallete } = this.props;
 		return(
 			<ToolWrapper>
 				<ToolPart>
+					<FAIcon icon={faList} onClick={togglePallete}/>
 					<Popover
 						isOpen={this.state.newPopover}
 						position={['bottom', 'left']}
