@@ -34,7 +34,7 @@ const TeamImageWrapper = styled.div`
 `;
 
 const TeamItem = styled.div`
-  width: ${props => props.variant === 'avatar' ? '300px' : '150px'};
+  width: ${props => props.variant === 'avatar' ? '300px' : '250px'};
   text-align: center;
   padding: 20px ${props => props.variant === 'avatar' ? '20px' : '50px'};
   ${props => props.variant === 'avatar' ? 'display: flex;' : ''}
