@@ -19,7 +19,8 @@ const IncrementInput = styled.input`
     outline: none;
     background-color: transparent;
     text-align: center;
-    appearance: none;
+		appearance: none;
+		width: 50px;
 `;
 
 class Increment extends React.Component {
