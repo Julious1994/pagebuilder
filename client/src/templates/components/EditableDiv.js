@@ -15,10 +15,6 @@ function EditableDiv(props) {
 	const { editable = true, html, disabled } = props;
 	const [editorState, setEditorState] = useState();
 
-	function handleChange(e) {
-		props.onChange && props.onChange(e.target.value);
-	};
-
 	function handleChange() {
 		const html = draftToHtml(convertToRaw(editorState.getCurrentContent()));
 		props.onChange && props.onChange(html);
@@ -48,6 +44,7 @@ function EditableDiv(props) {
 					width: '350%',
 					top: '-7em',
 					right: '-100%',
+					zIndex: '999',
 					...props.toolbarStyle
 				}}
 				editorStyle={{ ...(disabled && {overflow: 'hidden'})}}
