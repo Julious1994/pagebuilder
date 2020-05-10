@@ -7,7 +7,7 @@ const SectionWrapper = styled.div`
 	${props => props.center ? 'margin: 0px auto;' : ''};
 `;
 
-const SectionOuter = styled.div`
+const SectionOuter = styled.section`
 	background-color: ${props => props.backgroundColor || 'transparent'};
 `;
 
@@ -15,6 +15,7 @@ function Section(props) {
 	return (
 		<SectionOuter
 			backgroundColor={props.backgroundColor}
+			color={props.color}
 		>
 			<SectionWrapper
 				center={props.center}
