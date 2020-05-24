@@ -36,11 +36,9 @@ const FooterContainer = styled.div`
 	padding: 50px 0px;
 `;
 const SocialIcon = styled(FontAwesomeIcon)`
-	padding: 10px;
 	width: 25px;
 	height: 25px;
 	cursor: pointer;
-	color: ${props => props.color || '#fff'};
 `;
 
 const FooterInfo = styled.div`
@@ -193,7 +191,7 @@ class Footer2 extends React.Component {
 											onAddLink={() => this.handleAddLink(link, i, 'socialIconGroup')}
 											onRemoveLink={() => this.handleRemoveLink(i, 'socialIconGroup')}
 										>
-											<SocialIcon icon={brandIcons[link.icon]} />
+											<SocialIcon icon={brandIcons[link.icon]} color={settings.linkColor} />
 										</SocialLink>
 									))
 								}

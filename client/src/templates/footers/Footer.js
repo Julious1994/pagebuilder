@@ -24,15 +24,16 @@ const Contact = styled(EditableDiv)`
 	outline: none;
 `;
 const SocialWrapper = styled.div`
+display: flex;
 `;
 const FooterContainer = styled.div`
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	padding: 50px 0px;
 	color: ${props => props.color || '#464646'};
 `;
 const SocialIcon = styled(FontAwesomeIcon)`
-	padding: 10px;
 	width: 25px;
 	height: 25px;
 	cursor: pointer;
@@ -95,7 +96,7 @@ class Footer extends React.Component {
 									link={link}
 									onSettingChange={(link) => this.handleLinkChange(link, i, 'socialIconGroup')}
 								>
-									<SocialIcon icon={brandIcons[link.icon]} color={settings.color} />
+									<SocialIcon icon={brandIcons[link.icon]} color={settings.color || '#464646'} />
 								</SocialLink>
 							))
 						}

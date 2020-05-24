@@ -12,6 +12,7 @@ const PopupWrapper = styled.div`
 	padding: 10px 0px;
 	border-radius: 3px;
 	position: relative;
+	z-index: 1000;
 `;
 
 const Row = styled.div`
@@ -70,7 +71,7 @@ class LinkPopup extends React.Component {
 			<Popover
 					isOpen={isOpen}
 					onClickOutside={onClickOutside}
-					// position={['top', 'bottom']} // preferred position
+					// position={['top']} // preferred position
 					contentDestination={this.props.contentDestination}
 					content={(
 						<PopupWrapper>

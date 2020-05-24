@@ -37,6 +37,7 @@ const UL = styled.ul`
 	display: flex;
 	color: white;
 	cursor: pointer;
+	flex-direction: row;
 `;
 
 const LI = styled.li`
