@@ -6,13 +6,15 @@ import { faTimes, faNewspaper, faTrash, faPencilAlt } from '@fortawesome/free-so
 
 
 Modal.defaultStyles.overlay.backgroundColor = 'rgba(0,0,0,0.7)';
+Modal.defaultStyles.overlay.zIndex = 999;
 
 const customStyles = {
   content : {
     top                   : '20%',
     left                  : '30%',
     right                 : '30%',
-    bottom                : 'auto',
+		bottom                : 'auto',
+		zIndex: 999,
   }
 };
 
